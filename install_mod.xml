@@ -19,7 +19,7 @@
 		<mod-version>0.0.3</mod-version>
 		<installation>
 			<level>easy</level>
-			<time>180</time>
+			<time>300</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
@@ -47,6 +47,20 @@
 				<find><![CDATA[	<!-- ENDIF -->
 <!-- ENDIF -->]]></find>
 				<action type="before-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
+			</edit>
+		</open>
+		<open src="language/en/ucp.php">
+			<edit>
+				<find><![CDATA[?>]]></find>
+				<action type="before-add"><![CDATA[//Begin : Password Strength Indicator
+$lang = array_merge($lang, array(
+	'PSI_VERY_WEAK'		=> 'Very Weak',
+	'PSI_WEAK'			=> 'Weak',
+	'PSI_GOOD'			=> 'Good',
+	'PSI_STRONG'		=> 'Strong',
+	'PSI_VERY_STRONG'	=> 'Very Strong',
+));
+//End : Password Strength Indicator]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/overall_footer.html">

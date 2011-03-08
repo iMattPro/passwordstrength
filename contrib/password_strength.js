@@ -27,27 +27,27 @@ jQuery.fn.passwordStrength = function ()
 
 				case 1: 
 					$("#" + field).css("background-color","#F5A9A9"); //red
-					$("#" + field + "text").html("Very Weak").css("display", "block");
+					$("#" + field + "text").html(psi_1).css("display", "block");
 				break;
 
 				case 2: 
 					$("#" + field).css("background-color","#F5D0A9"); //orange
-					$("#" + field + "text").html("Weak").css("display", "block");
+					$("#" + field + "text").html(psi_2).css("display", "block");
 				break;
 
 				case 3: 
 					$("#" + field).css("background-color","#F3F781"); //yellow
-					$("#" + field + "text").html("Good").css("display", "block");
+					$("#" + field + "text").html(psi_3).css("display", "block");
 				break;
 
 				case 4: 
 					$("#" + field).css("background-color","#A9F5A9"); //green
-					$("#" + field + "text").html("Strong").css("display", "block");
+					$("#" + field + "text").html(psi_4).css("display", "block");
 				break;
 
 				case 5: 
 					$("#" + field).css("background-color","#A9F5A9"); //green
-					$("#" + field + "text").html("Very Strong").css("display", "block");
+					$("#" + field + "text").html(psi_5).css("display", "block");
 				break;
 			}
 		}
