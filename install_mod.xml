@@ -7,8 +7,8 @@
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Show Password Strength]]></title>
-		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (from red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong'. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
-		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. This MOD is designed to be compatible with other MODs that may already be using the jQuery library on your board. This MOD will check to see if jQuery is already present before it tries to load the version of jQuery supplied with this MOD. If you still have trouble with this MOD, you should first check to see if you do not have multiple links to the jQuery library from other MODs you may have installed. jQuery can only be linked to once on a page.]]></author-notes>
+		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
+		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. jQuery can only be loaded once or else conflicts will occur. If you are using other MODs that use jQuery, it is your responsibility to ensure there are no conflicts. This MOD includes jQuery on three pages - User Registration, UCP Account settings and ACP User Overview. If you experience any problems with jQuery related MODs on these pages, you should find out if jQuery is being called more than once on those pages, and delete the links to jQuery that happen after the first link has been established.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -37,16 +37,14 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/adm/style/password_strength/*.*" to="adm/style/password_strength/*.*"/>
+			<file from="root/password_strength/*.*" to="password_strength/*.*"/>
 			<file from="root/adm/style/password_strength.html" to="adm/style/password_strength.html"/>
-			<file from="root/styles/prosilver/template/password_strength/*.*" to="styles/prosilver/template/password_strength/*.*"/>
 			<file from="root/styles/prosilver/template/password_strength.html" to="styles/prosilver/template/password_strength.html"/>
 		</copy>
 		<open src="adm/style/acp_users_overview.html">
 			<edit>
-				<find><![CDATA[	<!-- ENDIF -->
-<!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
+				<find><![CDATA[<form id="user_overview" method="post" action="{U_ACTION}">]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
 			</edit>
 		</open>
 		<open src="language/en/ucp.php">
@@ -63,9 +61,9 @@ $lang = array_merge($lang, array(
 //End : Show Password Strength]]></action>
 			</edit>
 		</open>
-		<open src="styles/prosilver/template/overall_footer.html">
+		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
-				<find><![CDATA[</body>]]></find>
+				<find><![CDATA[</head>]]></find>
 				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
 	<!-- INCLUDE password_strength.html -->
 <!-- ENDIF -->]]></action>
