@@ -1,5 +1,5 @@
 /*
- * jQuery Password Strength Indicator 0.0.2
+ * jQuery Password Strength Indicator 0.0.3
  *
  * Code inspired by Naked Password by Platform45 at http://www.nakedpassword.com
  */
@@ -8,19 +8,11 @@ jQuery.fn.passwordStrength = function ()
 {
 	return this.each (function ()
 	{
-		var prev_password_level = 0;
-
 		var trigger = function(e)
 		{
-			var forward = false;
 			password_level = getPasswordStrength($(this).val());
-			if (prev_password_level <= password_level)
-			{
-				forward = true;
-			}
 
 			toggleField($(this).attr("id"), password_level);
-
 		};
 
 		function toggleField(field, level)
@@ -64,7 +56,7 @@ jQuery.fn.passwordStrength = function ()
 		{
 			var score = 0;
 			 
-			//if password bigger than 5 give 1 point
+			//if password has more than 5 characters give 1 point
 			if (password.length > 5) { score++; }
 			 
 			//if password has both lower and uppercase characters give 1 point
@@ -73,10 +65,10 @@ jQuery.fn.passwordStrength = function ()
 			//if password has at least one number AND at least 1 other character give 1 point
 			if ( ( password.match(/\d+/) ) && ( password.match(/\D+/) ) ) { score++; }
 			 
-			//if password has a combination of other characters and special caracthers give 1 point
+			//if password has a combination of other characters and special characters give 1 point
 			if ( ( password.match(/[!,@,#,$,%,^,&,*,?,_,~,-,(,)]+/) ) && ( password.match(/\w+/) ) ) { score++; }
 			 
-			//if password bigger than 12 give another 1 point (thanks reddit)
+			//if password has more than 12 characters give another 1 point
 			if (password.length > 12) { score++; }
 			 
 			return score;
