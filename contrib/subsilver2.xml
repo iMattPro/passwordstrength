@@ -28,7 +28,7 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="root/styles/subsilver2/template/password_strength/*" to="styles/subsilver2/template/password_strength/*"/>
+			<file from="root/styles/subsilver2/template/password_strength/*.*" to="styles/subsilver2/template/password_strength/*.*"/>
 			<file from="root/styles/subsilver2/template/password_strength.html" to="styles/subsilver2/template/password_strength.html"/>
 		</copy>
 		<open src="styles/subsilver2/template/overall_footer.html">
@@ -57,5 +57,6 @@
 				</inline-edit>
 			</edit>
 		</open>
+		<diy-instructions lang="en"><![CDATA[Go to ACP -> Styles -> Templates -> refresh the Templates]]></diy-instructions>
 	</action-group>
 </mod>

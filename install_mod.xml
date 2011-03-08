@@ -46,7 +46,7 @@
 			<edit>
 				<find><![CDATA[	<!-- ENDIF -->
 <!-- ENDIF -->]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
+				<action type="after-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
 			</edit>
 		</open>
 		<open src="language/en/ucp.php">
@@ -71,5 +71,6 @@ $lang = array_merge($lang, array(
 <!-- ENDIF -->]]></action>
 			</edit>
 		</open>
+		<diy-instructions lang="en"><![CDATA[Go to ACP -> Styles -> Templates -> refresh the Templates]]></diy-instructions>
 	</action-group>
 </mod>
