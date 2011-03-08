@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Password Strength Indicator (subsilver2)]]></title>
+		<title lang="en"><![CDATA[Show Password Strength (subsilver2)]]></title>
 		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (from red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong'. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
 		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. This MOD is designed to be compatible with other MODs that may already be using the jQuery library on your board. This MOD will check to see if jQuery is already present before it tries to load the version of jQuery supplied with this MOD. If you still have trouble with this MOD, you should first check to see if you do not have multiple links to the jQuery library from other MODs you may have installed. jQuery can only be linked to once on a page.]]></author-notes>
 		<author-group>
@@ -37,6 +37,24 @@
 				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
 	<!-- INCLUDE password_strength.html -->
 <!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_profile_reg_details.html">
+			<edit>
+				<find><![CDATA[<td class="row2"><input type="password" class="post" name="new_password" size="30" maxlength="255" value="{NEW_PASSWORD}" /></td>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[name="new_password"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ id="new_password"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_register.html">
+			<edit>
+				<find><![CDATA[<td class="row2"><input class="post" type="password" name="new_password" size="25" value="{PASSWORD}" /></td>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[name="new_password"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ id="new_password"]]></inline-action>
+				</inline-edit>
 			</edit>
 		</open>
 	</action-group>

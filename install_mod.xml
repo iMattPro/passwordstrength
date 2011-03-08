@@ -6,7 +6,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Password Strength Indicator]]></title>
+		<title lang="en"><![CDATA[Show Password Strength]]></title>
 		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (from red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong'. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
 		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. This MOD is designed to be compatible with other MODs that may already be using the jQuery library on your board. This MOD will check to see if jQuery is already present before it tries to load the version of jQuery supplied with this MOD. If you still have trouble with this MOD, you should first check to see if you do not have multiple links to the jQuery library from other MODs you may have installed. jQuery can only be linked to once on a page.]]></author-notes>
 		<author-group>
@@ -52,15 +52,15 @@
 		<open src="language/en/ucp.php">
 			<edit>
 				<find><![CDATA[?>]]></find>
-				<action type="before-add"><![CDATA[//Begin : Password Strength Indicator
+				<action type="before-add"><![CDATA[//Begin : Show Password Strength
 $lang = array_merge($lang, array(
-	'PSI_VERY_WEAK'		=> 'Very Weak',
-	'PSI_WEAK'			=> 'Weak',
-	'PSI_GOOD'			=> 'Good',
-	'PSI_STRONG'		=> 'Strong',
-	'PSI_VERY_STRONG'	=> 'Very Strong',
+	'PS_VERY_WEAK'		=> 'Very Weak',
+	'PS_WEAK'			=> 'Weak',
+	'PS_GOOD'			=> 'Good',
+	'PS_STRONG'			=> 'Strong',
+	'PS_VERY_STRONG'	=> 'Very Strong',
 ));
-//End : Password Strength Indicator]]></action>
+//End : Show Password Strength]]></action>
 			</edit>
 		</open>
 		<open src="styles/prosilver/template/overall_footer.html">
