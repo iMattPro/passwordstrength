@@ -4,11 +4,11 @@ Hi! I'm VSE from the phpBB community.
 
 Welcome to my Github repository for my MODs for phpBB3.
 
-* Current BETA version: v0.0.4
+* Current BETA version: v0.0.5
 
 == DESCRIPTION:
 
-his MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.
+This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.
 
 == DEVELOPMENT:
 
@@ -16,7 +16,7 @@ his MOD will show users how strong (or weak) their password is as they type it i
 
 == REQUIREMENTS:
 
-* phpBB 3.0.7-PL1 or greater
+* phpBB 3.0.8 or greater
 
 == LICENSE:
 

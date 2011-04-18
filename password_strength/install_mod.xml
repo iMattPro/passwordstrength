@@ -16,13 +16,21 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>0.0.4</mod-version>
+		<mod-version>0.0.5</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-04-18</date>
+				<rev-version>0.0.5</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Optimized javascript code]]></change>
+					<change><![CDATA[Updated jQuery library to 1.5.2]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-03-08</date>
 				<rev-version>0.0.4</rev-version>
@@ -33,6 +41,7 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
+			<link type="contrib" href="contrib/update_0.0.4.xml" lang="en">Update from 0.0.4</link>
 		</link-group>
 	</header>
 	<action-group>
