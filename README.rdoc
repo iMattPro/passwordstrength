@@ -4,7 +4,7 @@ Hi! I'm VSE from the phpBB community.
 
 Welcome to my Github repository for my MODs for phpBB3.
 
-* Current BETA version: v0.0.5
+* Current BETA version: v0.0.6
 
 == DESCRIPTION:
 
