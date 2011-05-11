@@ -16,13 +16,22 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>0.0.5</mod-version>
+		<mod-version>0.0.6</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-05-11</date>
+				<rev-version>0.0.6</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Moved javascript files to the bottom of html pages]]></change>
+					<change><![CDATA[Added a safety feature so we will only include jQuery if it is not already present, to prevent jQuery conflicts with other MODs.]]></change>
+					<change><![CDATA[Updated jQuery library to 1.6]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-04-18</date>
 				<rev-version>0.0.5</rev-version>
@@ -42,6 +51,7 @@
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
 			<link type="contrib" href="contrib/update_0.0.4.xml" lang="en">Update from 0.0.4</link>
+			<link type="contrib" href="contrib/update_0.0.5.xml" lang="en">Update from 0.0.5</link>
 		</link-group>
 	</header>
 	<action-group>
@@ -52,8 +62,9 @@
 		</copy>
 		<open src="adm/style/acp_users_overview.html">
 			<edit>
-				<find><![CDATA[<form id="user_overview" method="post" action="{U_ACTION}">]]></find>
-				<action type="before-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
+				<find><![CDATA[	<!-- ENDIF -->
+<!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
 			</edit>
 		</open>
 		<open src="language/en/ucp.php">
@@ -70,9 +81,9 @@ $lang = array_merge($lang, array(
 //End : Show Password Strength]]></action>
 			</edit>
 		</open>
-		<open src="styles/prosilver/template/overall_header.html">
+		<open src="styles/prosilver/template/overall_footer.html">
 			<edit>
-				<find><![CDATA[</head>]]></find>
+				<find><![CDATA[</body>]]></find>
 				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
 	<!-- INCLUDE password_strength.html -->
 <!-- ENDIF -->]]></action>

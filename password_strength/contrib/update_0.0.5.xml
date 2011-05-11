@@ -6,9 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Show Password Strength (subsilver2)]]></title>
-		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
-		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. jQuery can only be loaded once or else conflicts will occur. If you are using other MODs that use jQuery, it is your responsibility to ensure there are no conflicts. This MOD includes jQuery on three pages - User Registration, UCP Account settings and ACP User Overview. If you experience any problems with jQuery related MODs on these pages, you should find out if jQuery is being called more than once on those pages, and delete the links to jQuery that happen after the first link has been established.]]></author-notes>
+		<title lang="en"><![CDATA[Show Password Strength Update from 0.0.5]]></title>
+		<description lang="en"><![CDATA[These instructions will update this MOD from 0.0.5 to 0.0.6]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -28,9 +27,29 @@
 	</header>
 	<action-group>
 		<copy>
+			<file from="root/password_strength/*.*" to="password_strength/*.*"/>
+			<file from="root/adm/style/password_strength.html" to="adm/style/password_strength.html"/>
+			<file from="root/styles/prosilver/template/password_strength.html" to="styles/prosilver/template/password_strength.html"/>
 			<file from="root/styles/subsilver2/template/password_strength.html" to="styles/subsilver2/template/password_strength.html"/>
 		</copy>
-		<open src="styles/subsilver2/template/overall_footer.html">
+		<open src="adm/style/acp_users_overview.html">
+			<edit>
+				<remove><![CDATA[<!-- INCLUDE password_strength.html -->]]></remove>
+			</edit>
+			<edit>
+				<find><![CDATA[	<!-- ENDIF -->
+<!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<remove><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->]]></remove>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_footer.html">
 			<edit>
 				<find><![CDATA[</body>]]></find>
 				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
@@ -38,22 +57,19 @@
 <!-- ENDIF -->]]></action>
 			</edit>
 		</open>
-		<open src="styles/subsilver2/template/ucp_profile_reg_details.html">
+		<open src="styles/subsilver2/template/overall_header.html">
 			<edit>
-				<find><![CDATA[<td class="row2"><input type="password" class="post" name="new_password" size="30" maxlength="255" value="{NEW_PASSWORD}" /></td>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[name="new_password"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ id="new_password"]]></inline-action>
-				</inline-edit>
+				<remove><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->]]></remove>
 			</edit>
 		</open>
-		<open src="styles/subsilver2/template/ucp_register.html">
+		<open src="styles/subsilver2/template/overall_footer.html">
 			<edit>
-				<find><![CDATA[<td class="row2"><input class="post" type="password" name="new_password" size="25" value="{PASSWORD}" /></td>]]></find>
-				<inline-edit>
-					<inline-find><![CDATA[name="new_password"]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ id="new_password"]]></inline-action>
-				</inline-edit>
+				<find><![CDATA[</body>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+	<!-- INCLUDE password_strength.html -->
+<!-- ENDIF -->]]></action>
 			</edit>
 		</open>
 		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
