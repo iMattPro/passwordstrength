@@ -8,7 +8,7 @@
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Show Password Strength]]></title>
 		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
-		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. jQuery can only be loaded once or else conflicts will occur. If you are using other MODs that use jQuery, it is your responsibility to ensure there are no conflicts. This MOD includes jQuery on three pages - User Registration, UCP Account settings and ACP User Overview. If you experience any problems with jQuery related MODs on these pages, you should find out if jQuery is being called more than once on those pages, and delete the links to jQuery that happen after the first link has been established.]]></author-notes>
+		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. A copy of the jQuery library has been provided with this MOD.]]></author-notes>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -19,7 +19,7 @@
 		<mod-version>0.0.6</mod-version>
 		<installation>
 			<level>easy</level>
-			<time>300</time>
+			<time>60</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
@@ -50,7 +50,6 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
-			<link type="contrib" href="contrib/update_0.0.4.xml" lang="en">Update from 0.0.4</link>
 			<link type="contrib" href="contrib/update_0.0.5.xml" lang="en">Update from 0.0.5</link>
 		</link-group>
 	</header>
