@@ -16,13 +16,21 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>0.0.6</mod-version>
+		<mod-version>1.0.0</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-05-14</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Prepped for final release]]></change>
+					<change><![CDATA[Added a brighter green color to the Very Strong setting.]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-05-11</date>
 				<rev-version>0.0.6</rev-version>
