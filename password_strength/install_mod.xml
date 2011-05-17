@@ -16,13 +16,20 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.0</mod-version>
+		<mod-version>1.0.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-05-16</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Updated jQuery library to 1.6.1]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-05-14</date>
 				<rev-version>1.0.0</rev-version>
