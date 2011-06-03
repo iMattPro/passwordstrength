@@ -16,13 +16,22 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.1</mod-version>
+		<mod-version>1.0.2</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-06-02</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Add a copy of the uncompressed JS file to the contrib folder for reference only.]]></change>
+					<change><![CDATA[Move the HTML color hex codes to the template files so users can change them on a per style basis, if desired.]]></change>
+					<change><![CDATA[Make correct us of LA_ for language vars in the template files for proper escaping in javascript.]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-05-16</date>
 				<rev-version>1.0.1</rev-version>
@@ -65,6 +74,7 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
+			<link type="contrib" href="contrib/update_1.0.1.xml" lang="en">Update from 1.0.1</link>
 			<link type="contrib" href="contrib/update_0.0.5.xml" lang="en">Update from 0.0.5</link>
 		</link-group>
 	</header>

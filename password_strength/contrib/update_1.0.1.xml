@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Show Password Strength Update from 0.0.5]]></title>
-		<description lang="en"><![CDATA[These instructions will update this MOD from 0.0.5 to 1.0.2]]></description>
+		<title lang="en"><![CDATA[Show Password Strength Update from 1.0.1]]></title>
+		<description lang="en"><![CDATA[These instructions will update this MOD from 1.0.1 to 1.0.2]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -32,46 +32,6 @@
 			<file from="root/styles/prosilver/template/password_strength.html" to="styles/prosilver/template/password_strength.html"/>
 			<file from="root/styles/subsilver2/template/password_strength.html" to="styles/subsilver2/template/password_strength.html"/>
 		</copy>
-		<open src="adm/style/acp_users_overview.html">
-			<edit>
-				<remove><![CDATA[<!-- INCLUDE password_strength.html -->]]></remove>
-			</edit>
-			<edit>
-				<find><![CDATA[	<!-- ENDIF -->
-<!-- ENDIF -->]]></find>
-				<action type="after-add"><![CDATA[<!-- INCLUDE password_strength.html -->]]></action>
-			</edit>
-		</open>
-		<open src="styles/prosilver/template/overall_header.html">
-			<edit>
-				<remove><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
-	<!-- INCLUDE password_strength.html -->
-<!-- ENDIF -->]]></remove>
-			</edit>
-		</open>
-		<open src="styles/prosilver/template/overall_footer.html">
-			<edit>
-				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
-	<!-- INCLUDE password_strength.html -->
-<!-- ENDIF -->]]></action>
-			</edit>
-		</open>
-		<open src="styles/subsilver2/template/overall_header.html">
-			<edit>
-				<remove><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
-	<!-- INCLUDE password_strength.html -->
-<!-- ENDIF -->]]></remove>
-			</edit>
-		</open>
-		<open src="styles/subsilver2/template/overall_footer.html">
-			<edit>
-				<find><![CDATA[</body>]]></find>
-				<action type="before-add"><![CDATA[<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
-	<!-- INCLUDE password_strength.html -->
-<!-- ENDIF -->]]></action>
-			</edit>
-		</open>
 		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
 	</action-group>
 </mod>
