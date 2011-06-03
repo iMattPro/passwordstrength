@@ -1,7 +1,7 @@
 /**
 *
 * @package password_strength JavaScript Code
-* @version 0.0.6 4/25/11 7:48 PM
+* @version 0.0.7 6/2/11 5:23 PM
 * @copyright (c) 2011 VSE for phpBB
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 * @inspired by Naked Password by Platform45 at http://www.nakedpassword.com
@@ -12,15 +12,13 @@ jQuery.fn.passwordStrength = function()
 {
 	return this.each(function()
 	{
-		var fieldColor = new Array(
-			$(this).css("background-color"), // 0 default field color
-			"#f5a9a9", // 1 red
-			"#f5d0a9", // 2 orange
-			"#f3f781", // 3 yellow
-			"#a9f5a9", // 4 green
-			"#00ff00"  // 5 green
-		);
-		var respText = new Array("", ps_1, ps_2, ps_3, ps_4, ps_5);
+		var responseArr = new Array();
+		responseArr[0] = new Array($(this).css("background-color"), ""); // 0 defaults
+		responseArr[1] = new Array(ps_color1, ps_text1); // score 1
+		responseArr[2] = new Array(ps_color2, ps_text2); // score 2
+		responseArr[3] = new Array(ps_color3, ps_text3); // score 3
+		responseArr[4] = new Array(ps_color4, ps_text4); // score 4
+		responseArr[5] = new Array(ps_color5, ps_text5); // score 5
 
 		function trigger()
 		{
@@ -31,8 +29,8 @@ jQuery.fn.passwordStrength = function()
 		function showStrength(field, score)
 		{
 			//Set the correct background color and text indicator for the current score
-			field.css("background-color",fieldColor[score]);
-			$("#password_strength").html(respText[score]);
+			field.css("background-color",responseArr[score][0]);
+			$("#password_strength").html(responseArr[score][1]);
 		}
 
 		function getPasswordStrength(password)
@@ -51,7 +49,7 @@ jQuery.fn.passwordStrength = function()
 		}
 
 		//Keyup listener
-		$(this).bind('keyup', trigger).bind('blur', trigger)
+		$(this).bind("keyup", trigger).bind("blur", trigger)
 		//Set up hidden text indicator
 		.after("<div id='password_strength'></div>");
 	});
