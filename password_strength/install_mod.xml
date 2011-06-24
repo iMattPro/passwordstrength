@@ -74,6 +74,7 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
+			<link type="language" href="contrib/pl.xml" lang="en">Polish Language Instructions</link>
 			<link type="contrib" href="contrib/update_1.0.1.xml" lang="en">Update from 1.0.1</link>
 			<link type="contrib" href="contrib/update_0.0.5.xml" lang="en">Update from 0.0.5</link>
 		</link-group>
