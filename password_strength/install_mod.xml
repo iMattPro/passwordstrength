@@ -13,16 +13,24 @@
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
 				<username><![CDATA[VSE]]></username>
-				<homepage><![CDATA[forum.orca-music.com]]></homepage>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/show_password_strength/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.2</mod-version>
+		<mod-version>1.0.3</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-08-15</date>
+				<rev-version>1.0.3</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Refactored the code used to safely include jQuery]]></change>
+					<change><![CDATA[Updated jQuery library to v1.6.2]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-06-02</date>
 				<rev-version>1.0.2</rev-version>
@@ -75,6 +83,7 @@
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
 			<link type="language" href="contrib/pl.xml" lang="en">Polish Language Instructions</link>
+			<link type="contrib" href="contrib/update_1.0.2.xml" lang="en">Update from 1.0.2</link>
 			<link type="contrib" href="contrib/update_1.0.1.xml" lang="en">Update from 1.0.1</link>
 			<link type="contrib" href="contrib/update_0.0.5.xml" lang="en">Update from 0.0.5</link>
 		</link-group>

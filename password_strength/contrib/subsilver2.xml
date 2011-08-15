@@ -16,11 +16,11 @@
 				<homepage><![CDATA[forum.orca-music.com]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.2</mod-version>
+		<mod-version>1.0.3</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 		<link-group>
 			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
