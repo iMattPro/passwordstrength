@@ -56,6 +56,6 @@
 				</inline-edit>
 			</edit>
 		</open>
-		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Purge the cache, refresh template files!]]></diy-instructions>
 	</action-group>
 </mod>

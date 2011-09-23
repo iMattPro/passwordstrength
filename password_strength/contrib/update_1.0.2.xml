@@ -6,8 +6,8 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Show Password Strength Update from 1.0.1]]></title>
-		<description lang="en"><![CDATA[These instructions will update this MOD from 1.0.1 to 1.0.3]]></description>
+		<title lang="en"><![CDATA[Show Password Strength Update from 1.0.2]]></title>
+		<description lang="en"><![CDATA[These instructions will update this MOD from 1.0.2 to 1.0.3]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -32,6 +32,6 @@
 			<file from="root/styles/prosilver/template/password_strength.html" to="styles/prosilver/template/password_strength.html"/>
 			<file from="root/styles/subsilver2/template/password_strength.html" to="styles/subsilver2/template/password_strength.html"/>
 		</copy>
-		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Purge the cache, refresh template files!]]></diy-instructions>
 	</action-group>
 </mod>

@@ -32,6 +32,6 @@
 			<file from="root/styles/prosilver/template/password_strength.html" to="styles/prosilver/template/password_strength.html"/>
 			<file from="root/styles/subsilver2/template/password_strength.html" to="styles/subsilver2/template/password_strength.html"/>
 		</copy>
-		<diy-instructions lang="en"><![CDATA[Purge the cache!]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Purge the cache, refresh template files!]]></diy-instructions>
 	</action-group>
 </mod>
