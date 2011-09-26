@@ -82,6 +82,7 @@
 		</history>
 		<link-group>
 			<link type="template" href="contrib/subsilver2.xml" lang="en">subsilver2 instructions</link>
+			<link type="language" href="contrib/hr.xml" lang="en">Croatian Language Instructions</link>
 			<link type="language" href="contrib/pl.xml" lang="en">Polish Language Instructions</link>
 			<link type="contrib" href="contrib/update_1.0.2.xml" lang="en">Update from 1.0.2</link>
 			<link type="contrib" href="contrib/update_1.0.1.xml" lang="en">Update from 1.0.1</link>

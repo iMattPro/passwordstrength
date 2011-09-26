@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Show Password Strength - Croatian Language]]></title>
+		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
+		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. A copy of the jQuery library has been provided with this MOD.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Matt Friedman]]></realname>
+				<username><![CDATA[VSE]]></username>
+				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/show_password_strength/]]></homepage>
+			</author>
+			<author>
+				<username><![CDATA[akarlovic]]></username>
+				<homepage><![CDATA[http://phpbb.com.hr]]></homepage>
+				<contributions-group>
+					<contributions status="current" position="Translator-HR"></contributions>
+				</contributions-group>
+			 </author>
+		</author-group>
+		<mod-version>1.0.3</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+		<link-group>
+			<link type="parent" href="../install_mod.xml" lang="en">Main Install Instructions</link>
+		</link-group>
+	</header>
+	<action-group>
+		<open src="language/hr/ucp.php">
+			<edit>
+				<find><![CDATA[?>]]></find>
+				<action type="before-add"><![CDATA[//Begin : Show Password Strength
+$lang = array_merge($lang, array(
+	'PS_VERY_WEAK'		=> 'Vrlo slaba',
+	'PS_WEAK'			=> 'Slaba',
+	'PS_GOOD'			=> 'Dobra',
+	'PS_STRONG'			=> 'Jaka',
+	'PS_VERY_STRONG'	=> 'Vrlo jaka',
+));
+//End : Show Password Strength]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>
