@@ -16,7 +16,7 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/show_password_strength/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.3</mod-version>
+		<mod-version>1.0.4</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>

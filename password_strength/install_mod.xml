@@ -16,13 +16,21 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/show_password_strength/]]></homepage>
 			</author>
 		</author-group>
-		<mod-version>1.0.3</mod-version>
+		<mod-version>1.0.4</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>60</time>
 			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-10-10</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Add French language pack]]></change>
+					<change><![CDATA[Add Croatian language pack]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-08-15</date>
 				<rev-version>1.0.3</rev-version>
