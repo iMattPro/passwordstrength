@@ -6,9 +6,10 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Show Password Strength - Croatian Language]]></title>
+		<title lang="en"><![CDATA[Show Password Strength]]></title>
+		<title lang="fr"><![CDATA[Afficher la force du mot de passe]]></title>
 		<description lang="en"><![CDATA[This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.]]></description>
-		<author-notes lang="en"><![CDATA[This MOD requires the jQuery library. A copy of the jQuery library has been provided with this MOD.]]></author-notes>
+		<description lang="fr"><![CDATA[Ce mod va afficher aux membres qui s'enregistrent la force de leur mot de passe lors de la saisie de celui ci. Le champ mot de passe vous affiche un code couleur allant du rouge au vert selon la complexité, ainsi qu'un indicateur de texte pour «très faible», «faible», «Ok», «Complexe» et «Très complexe» . Cette fonction est présente sur la page d'inscription , dans le panneau d'administration ainsi que dans le profil des membres .]]></description>
 		<author-group>
 			<author>
 				<realname><![CDATA[Matt Friedman]]></realname>
@@ -16,10 +17,10 @@
 				<homepage><![CDATA[http://www.phpbb.com/customise/db/mod/show_password_strength/]]></homepage>
 			</author>
 			<author>
-				<username><![CDATA[akarlovic]]></username>
-				<homepage><![CDATA[http://phpbb.com.hr]]></homepage>
+				<username phpbbcom="no"><![CDATA[EnYgmA]]></username>
+				<homepage><![CDATA[http://www.phpbb-assistance.com/]]></homepage>
 				<contributions-group>
-					<contributions status="current" position="Translator-HR"></contributions>
+					<contributions status="current" position="Translator-FR"></contributions>
 				</contributions-group>
 			</author>
 		</author-group>
@@ -34,16 +35,16 @@
 		</link-group>
 	</header>
 	<action-group>
-		<open src="language/hr/ucp.php">
+		<open src="language/fr/ucp.php">
 			<edit>
 				<find><![CDATA[?>]]></find>
 				<action type="before-add"><![CDATA[//Begin : Show Password Strength
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'Vrlo slaba',
-	'PS_WEAK'			=> 'Slaba',
-	'PS_GOOD'			=> 'Dobra',
-	'PS_STRONG'			=> 'Jaka',
-	'PS_VERY_STRONG'	=> 'Vrlo jaka',
+	'PS_VERY_WEAK'		=> 'Très faible',
+	'PS_WEAK'			=> 'Faible',
+	'PS_GOOD'			=> 'Ok',
+	'PS_STRONG'			=> 'Complexe',
+	'PS_VERY_STRONG'	=> 'Très complexe',
 ));
 //End : Show Password Strength]]></action>
 			</edit>
