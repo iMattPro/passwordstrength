@@ -1,3 +1,7 @@
+<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
+<script type="text/javascript">
+// <![CDATA[
+
 /**
 *
 * @package password_strength JavaScript Code
@@ -15,25 +19,25 @@
 		{
 			var responseArr = new Array();
 			responseArr[0] = new Array($(this).css("background-color"), ""); // 0 defaults
-			responseArr[1] = new Array(ps_color1, ps_text1); // score 1
-			responseArr[2] = new Array(ps_color2, ps_text2); // score 2
-			responseArr[3] = new Array(ps_color3, ps_text3); // score 3
-			responseArr[4] = new Array(ps_color4, ps_text4); // score 4
-			responseArr[5] = new Array(ps_color5, ps_text5); // score 5
-	
+			responseArr[1] = new Array("#f5a9a9", "{LA_PS_VERY_WEAK}"); // 1 red, very weak
+			responseArr[2] = new Array("#f5d0a9", "{LA_PS_WEAK}"); // 2 orange, weak
+			responseArr[3] = new Array("#f3f781", "{LA_PS_GOOD}"); // 3 yellow, good
+			responseArr[4] = new Array("#a9f5a9", "{LA_PS_STRONG}"); // 4 light green, strong
+			responseArr[5] = new Array("#00ff00", "{LA_PS_VERY_STRONG}"); // 5 green, very strong
+
 			function trigger()
 			{
 				var password_score = getPasswordStrength($(this).val());
 				showStrength($(this), password_score);
 			}
-	
+
 			function showStrength(field, score)
 			{
 				//Set the correct background color and text indicator for the current score
 				field.css("background-color",responseArr[score][0]);
 				$("#password_strength").html(responseArr[score][1]);
 			}
-	
+
 			function getPasswordStrength(password)
 			{
 				return 0
@@ -48,7 +52,7 @@
 				//if password has more than 12 characters give another 1 point
 				+ ( password.length > 12 );
 			}
-	
+
 			//Keyup listener
 			$(this)
 				.bind("keyup", trigger)
@@ -60,5 +64,9 @@
 })( jQuery );
 
 $(document).ready(function() {
-	$("#new_password").passwordStrength();
+	$("input[name=new_password]").passwordStrength();
 });
+
+// ]]>
+</script>
+<!-- ENDIF -->
