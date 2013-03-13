@@ -6,7 +6,7 @@ An extension for phpBB 3.1 that will show users how strong (or weak) their passw
 Status
 ------
 
-Extension is completed. However, a bug in phpBB's extensions causes the language variables to break the javascript. This bug needs to be sorted out!
+Extension is completed. However, a bug in phpBB's extensions causes the language variables to break the javascript. This bug needs to be sorted out! And once templates can include files correctly, move all the JS into a file and use INCLUDEJS in the templates.
 
 Requirements
 ------------
