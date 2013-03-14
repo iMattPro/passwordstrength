@@ -27,11 +27,11 @@ class phpbb_ext_vse_passwordstrength_event_listener implements EventSubscriberIn
  	static public function getSubscribedEvents()
  	{
  		return array(
- 			'core.common' => 'show_password_strength',
+ 			'core.user_setup' => 'setup_password_strength',
  		);
  	}
 
- 	public function show_password_strength($event)
+ 	public function setup_password_strength($event)
  	{
  		global $user;
 
