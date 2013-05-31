@@ -1,17 +1,17 @@
 <?php
 /**
- *
- * passwordstrength [Croatian]
- *
- * @package language
- * @copyright (c) 2013 Matt Friedman (translated by akarlovic http://phpbb.com.hr)
- * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
- */
+*
+* passwordstrength [Croatian]
+*
+* @package language
+* @copyright (c) 2013 Matt Friedman (translated by akarlovic http://phpbb.com.hr)
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
 
 /**
- * DO NOT CHANGE
- */
+* DO NOT CHANGE
+*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
