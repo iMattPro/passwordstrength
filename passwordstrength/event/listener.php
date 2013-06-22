@@ -24,18 +24,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class phpbb_ext_vse_passwordstrength_event_listener implements EventSubscriberInterface
 {
 
- 	static public function getSubscribedEvents()
- 	{
- 		return array(
- 			'core.user_setup' => 'setup_password_strength',
- 		);
- 	}
+	static public function getSubscribedEvents()
+	{
+		return array(
+			'core.user_setup' => 'setup_password_strength',
+		);
+	}
 
- 	public function setup_password_strength($event)
- 	{
- 		global $user;
+	public function setup_password_strength($event)
+	{
+		global $user;
 
- 		$user->add_lang_ext('vse/passwordstrength', 'passwordstrength');
+		$user->add_lang_ext('vse/passwordstrength', 'passwordstrength');
 	}
 
 }
