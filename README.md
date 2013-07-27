@@ -1,5 +1,5 @@
 ![Show Password Strength](http://orcamx.vlexofree.com/forum/images/showpass.png "Show Password Strength") Show Password Strength for phpBB3
-==========================
+---------------------------
 
 An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field.
 
