@@ -1,14 +1,14 @@
-![Show Password Strength](http://orcamx.vlexofree.com/forum/images/showpass.png "Show Password Strength") Show Password Strength for phpBB3
+![Show Password Strength](http://mattfriedman.me/forum/images/showpass.png "Show Password Strength") Show Password Strength for phpBB3
 ---------------------------
 
 An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field.
 
 ## Browser support
-![Chrome 4+](http://orcamx.vlexofree.com/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](http://orcamx.vlexofree.com/software/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](http://orcamx.vlexofree.com/software/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](http://orcamx.vlexofree.com/software/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 8+](http://orcamx.vlexofree.com/software/browsericons/opera.png "Opera 8+")8+
+![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
+![Firefox 3.5+](http://mattfriedman.me/software/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
+![Safari 3+](http://mattfriedman.me/software/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
+![Internet Explorer 6+](http://mattfriedman.me/software/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
+![Opera 8+](http://mattfriedman.me/software/browsericons/opera.png "Opera 8+")8+
 
 ## Stable releases
 Grab the latest release from phpBB: ([Download it here](https://www.phpbb.com/customise/db/mod/show_password_strength/)) 
