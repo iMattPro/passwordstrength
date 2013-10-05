@@ -1,11 +1,11 @@
 {
     "name": "vse/passwordstrength",
-    "type": "phpbb3-extension",
+    "type": "phpbb-extension",
     "description": "An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color (red for weak to green for strong) and a text indicator for 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong' passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.",
     "homepage": "https://github.com/VSEphpbb/password_strength",
     "version": "1.1.0",
-    "time": "2013-03-12",
-    "licence": "GPLv2",
+    "time": "2013-10-04",
+    "licence": "GPL-2.0",
     "authors": [
         {
             "name": "Matt Friedman (VSE)",
@@ -14,8 +14,8 @@
         }
     ],
     "require": {
-        "phpbb": "3.1.0-dev",
-        "php": "5.3.0"
+        "php": ">=5.3",
+        "phpbb": "3.1.*@dev"
     },
     "extra": {
         "display-name": "Show Password Strength"
