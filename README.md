@@ -44,7 +44,9 @@ You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](h
 Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
 
 ## Uninstallation
-Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Purge`.
+Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Disable`.
+
+To permanently uninstall, click `Delete Data` and then you can safely delete the `/ext/vse/passwordstrength` folder.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
