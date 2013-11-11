@@ -1,5 +1,4 @@
-![Show Password Strength](http://mattfriedman.me/forum/images/showpass.png "Show Password Strength") Show Password Strength
-========================
+# ![Show Password Strength](http://mattfriedman.me/forum/images/showpass.png "Show Password Strength") Show Password Strength
 
 An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field.
 
@@ -37,7 +36,16 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/password_stre
 ## Installation
 You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by following the steps below:
 
-1. Copy the entire contents of this repo to `phpBB/ext/vse/passwordstrength/`
+**Manual:**
+
+1. Copy the entire contents of this repo to to `phpBB/ext/vse/passwordstrength/`
+2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
+3. Click `Enable`.
+
+**Git CLI:**
+
+1. From the board root run the following git command:
+`git clone -b extension https://github.com/VSEphpbb/password_strength.git phpBB/ext/vse/passwordstrength`
 2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
 3. Click `Enable`.
 
