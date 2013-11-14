@@ -1,0 +1,5 @@
+services:
+    vse.passwordstrength.listener:
+        class: vse\passwordstrength\event\listener
+        tags:
+            - { name: event.listener }
