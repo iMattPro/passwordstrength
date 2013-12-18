@@ -20,15 +20,18 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup' => 'setup_password_strength',
+			'core.user_setup' => 'load_language_on_setup',
 		);
 	}
 
-	public function setup_password_strength($event)
+	public function load_language_on_setup($event)
 	{
-		global $user;
-
-		$user->add_lang_ext('vse/passwordstrength', 'passwordstrength');
+		$lang_set_ext = $event['lang_set_ext'];
+		$lang_set_ext[] = array(
+			'ext_name' => 'vse/passwordstrength',
+			'lang_set' => 'passwordstrength',
+		);
+		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
 }
