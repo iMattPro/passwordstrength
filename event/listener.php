@@ -16,7 +16,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-
+	/**
+	* Assign functions defined in this class to event listeners in the core
+	*
+	* @return array
+	* @static
+	* @access public
+	*/
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -24,6 +30,13 @@ class listener implements EventSubscriberInterface
 		);
 	}
 
+	/**
+	* Load language file during user setup
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
 	public function load_language_on_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
@@ -33,5 +46,4 @@ class listener implements EventSubscriberInterface
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
-
 }
