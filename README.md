@@ -1,4 +1,4 @@
-# ![Show Password Strength](http://mattfriedman.me/forum/images/showpass.png "Show Password Strength") Show Password Strength
+# ![Password Strength](http://mattfriedman.me/forum/images/showpass.png "Password Strength") Password Strength
 
 An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field.
 
@@ -13,7 +13,7 @@ An extension for phpBB 3.1 that will show users how strong (or weak) their passw
 Grab the latest release from phpBB: ([Download it here](https://www.phpbb.com/customise/db/mod/show_password_strength/)) 
 
 ## Demo
-Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/password_strength/)) 
+Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/)) 
 
 ## Features
 * Password strength is indicated visually. The password field will change colors as the user types in a password, displaying red for weak passwords through green for strong passwords.
