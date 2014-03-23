@@ -39,8 +39,8 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * German (Formal Honorifics)
 * Greek
 * Polish
-* Ukrainian
 * Spanish
+* Ukrainian
 
 ## Requirements
 * phpBB 3.1-dev or higher
