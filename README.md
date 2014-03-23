@@ -29,6 +29,19 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
 
+### Languages supported:
+* English
+* Brazilian Portuguese
+* Croatian
+* Czech
+* French
+* German (Casual Honorifics)
+* German (Formal Honorifics)
+* Greek
+* Polish
+* Ukrainian
+* Spanish
+
 ## Requirements
 * phpBB 3.1-dev or higher
 * PHP 5.3.3 or higher
