@@ -19,10 +19,10 @@
     },
     "extra": {
         "display-name": "Password Strength",
-		"version-check": {
-			"host": "vsephpbb.github.io",
-			"directory": "/passwordstrength",
-			"filename": "version.json"
-		}
+        "version-check": {
+            "host": "vsephpbb.github.io",
+            "directory": "/passwordstrength",
+            "filename": "version.json"
+        }
     }
 }
