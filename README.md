@@ -9,9 +9,6 @@ An extension for phpBB 3.1 that will show users how strong (or weak) their passw
 ![Internet Explorer 6+](http://mattfriedman.me/software/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
 ![Opera 8+](http://mattfriedman.me/software/browsericons/opera.png "Opera 8+")8+
 
-## Stable releases
-Grab the latest release from phpBB: ([Download it here](https://www.phpbb.com/customise/db/mod/show_password_strength/)) 
-
 ## Demo
 Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/)) 
 
@@ -43,31 +40,21 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Ukrainian
 
 ## Requirements
-* phpBB 3.1-dev or higher
+* phpBB 3.1.0-b4 or higher
 * PHP 5.3.3 or higher
-
-## Installation
-You can install this on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by following the steps below:
-
-**Manual:**
-
-1. Copy the entire contents of this repo to `phpBB/ext/vse/passwordstrength/`
-2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
-3. Click `Enable`.
-
-**Git CLI:**
-
-1. From the board root run the following git command:
-`git clone -b extension https://github.com/VSEphpbb/password_strength.git phpBB/ext/vse/passwordstrength`
-2. Navigate in the ACP to `Customise -> Extension Management -> Extensions`.
-3. Click `Enable`.
 
 Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
 
-## Uninstallation
-Navigate in the ACP to `Customise -> Extension Management -> Extensions` and click `Disable`.
+## Installation
+1. [Download the latest release](https://github.com/VSEphpbb/passwordstrength/releases) and unzip it.
+2. Copy the entire contents from the unzipped folder to `phpBB/ext/vse/passwordstrength/`.
+3. Navigate in the ACP to `Customise -> Manage extensions`.
+4. Find Password Strength under "Disabled Extensions" and click `Enable`.
 
-To permanently uninstall, click `Delete Data` and then you can safely delete the `/ext/vse/passwordstrength` folder.
+## Uninstallation
+1. Navigate in the ACP to `Customise -> Manage extensions`.
+2. Click the `Disable` link for Password Strength.
+3. To permanently uninstall, click `Delete Data`, then delete the `passwordstrength` folder from `phpBB/ext/vse/`.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
