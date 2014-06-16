@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* passwordstrength [Português Brasileiro]
+* Password Strength [Português Brasileiro]
+* Translated by _Vinny_
 *
-* @package language
-* @copyright (c) 2013 Matt Friedman, _Vinny_
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

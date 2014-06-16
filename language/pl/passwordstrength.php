@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* passwordstrength [Polish]
+* Password Strength [Polish]
+* Translated by Piotr [all4phone] http://bbcode.pl/
 *
-* @package language
-* @copyright (c) 2013 Matt Friedman (translated by Piotr [all4phone] http://bbcode.pl/)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

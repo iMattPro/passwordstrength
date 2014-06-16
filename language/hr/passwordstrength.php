@@ -1,11 +1,11 @@
 <?php
 /**
 *
-* passwordstrength [Croatian]
+* Password Strength [Croatian]
+* Translated by akarlovic http://phpbb.com.hr
 *
-* @package language
-* @copyright (c) 2013 Matt Friedman (translated by akarlovic http://phpbb.com.hr)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
