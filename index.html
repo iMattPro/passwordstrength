@@ -64,54 +64,51 @@
     </div>
     <script src="javascripts/scale.fix.js"></script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript">
 	(function( $ ){
-		$.fn.passwordStrength = function()
-		{
-			return this.each(function()
-			{
-				var responseArr = new Array();
-				responseArr[0] = new Array($(this).css("background-color"), ""); // 0 defaults
-				responseArr[1] = new Array("#f5a9a9", "Very Weak"); // score 1
-				responseArr[2] = new Array("#f5d0a9", "Weak"); // score 2
-				responseArr[3] = new Array("#f3f781", "Good"); // score 3
-				responseArr[4] = new Array("#a9f5a9", "Strong"); // score 4
-				responseArr[5] = new Array("#00ff00", "Very Strong"); // score 5
-		
-				function trigger()
-				{
-					var password_score = getPasswordStrength($(this).val());
-					showStrength($(this), password_score);
+		$.fn.passwordStrength = function() {
+			return this.each(function() {
+				var responseArr = [];
+				responseArr[0] = new Array($(this).css("background-color"), "");
+				responseArr[1] = new Array("#f5a9a9", "Very Weak");
+				responseArr[2] = new Array("#f5a9a9", "Very Weak");
+				responseArr[3] = new Array("#f5d0a9", "Weak");
+				responseArr[4] = new Array("#f3f781", "Good");
+				responseArr[5] = new Array("#a9f5a9", "Strong");
+				responseArr[6] = new Array("#00ff00", "Very Strong");
+
+				function trigger() {
+					var passwordScore = getPasswordStrength($(this).val());
+					showStrength($(this), passwordScore);
 				}
-		
-				function showStrength(field, score)
-				{
-					//Set the correct background color and text indicator for the current score
+
+				function showStrength(field, score) {
+					// Set the correct background color and text indicator for the current score
 					field.css("background-color",responseArr[score][0]);
 					$("#password_strength").html(responseArr[score][1]);
 				}
-		
-				function getPasswordStrength(password)
-				{
+
+				function getPasswordStrength(password) {
 					return 0
-					//if password has more than 5 characters give 1 point
+					// if password has more than 0 characters give 1 point
+					+ ( password.length > 0 )
+					// if password has more than 5 characters give 1 point
 					+ ( password.length > 5 )
-					//if password has both lower and uppercase characters give 1 point
+					// if password has both lower and uppercase characters give 1 point
 					+ ( /[a-z]/.test(password) && /[A-Z]/.test(password) )
-					//if password has at least one number AND at least 1 other character give 1 point
+					// if password has at least one number AND at least 1 other character give 1 point
 					+ ( /\d/.test(password) && /\D/.test(password) )
-					//if password has a combination of other characters and special characters give 1 point
+					// if password has a combination of other characters and special characters give 1 point
 					+ ( /[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/.test(password) && /\w/.test(password) )
-					//if password has more than 12 characters give another 1 point
+					// if password has more than 12 characters give 1 point
 					+ ( password.length > 12 );
 				}
-		
-				//Keyup listener
+
 				$(this)
-					.bind("keyup", trigger)
-					.bind("blur", trigger)
-					//Set up hidden text indicator
+					// Keyup listener
+					.bind("keyup blur", trigger)
+					// Add hidden text indicator
 					.after("<div id='password_strength'></div>");
 			});
 		};
