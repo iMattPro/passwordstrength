@@ -2,7 +2,7 @@
 
 An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/passwordstrength.png)](https://travis-ci.org/VSEphpbb/passwordstrength)
+[![Build Status](https://travis-ci.org/VSEphpbb/passwordstrength.png?branch=extension)](https://travis-ci.org/VSEphpbb/passwordstrength)
 
 ## Browser support
 ![Chrome 4+](http://mattfriedman.me/software/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
