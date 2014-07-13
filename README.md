@@ -44,7 +44,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Ukrainian
 
 ## Requirements
-* phpBB 3.1.0-b4 or higher
+* phpBB 3.1.0-RC2 or higher
 * PHP 5.3.3 or higher
 
 Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0.
