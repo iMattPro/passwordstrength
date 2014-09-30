@@ -34,6 +34,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Croatian
 * Czech
 * Dutch
+* Estonian
 * French
 * German (Casual Honorifics)
 * German (Formal Honorifics)
