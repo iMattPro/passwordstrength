@@ -27,8 +27,8 @@
 		},
 		"version-check": {
 			"host": "vsephpbb.github.io",
-			"directory": "/passwordstrength",
-			"filename": "version.json"
+			"directory": "/version",
+			"filename": "passwordstrength.json"
 		}
 	}
 }
