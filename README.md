@@ -12,7 +12,7 @@ An extension for phpBB 3.1 that will show users how strong (or weak) their passw
 ![Opera 8+](http://mattfriedman.me/software/browsericons/opera.png "Opera 8+")8+
 
 ## Demo
-Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/)) 
+Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/))
 
 ## Features
 * Password strength is indicated visually. The password field will change colors as the user types in a password, displaying red for weak passwords through green for strong passwords.
@@ -31,6 +31,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 ### Languages supported:
 * English
 * Brazilian Portuguese
+* Bulgarian
 * Croatian
 * Czech
 * Dutch
