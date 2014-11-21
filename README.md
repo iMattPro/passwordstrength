@@ -44,6 +44,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Persian
 * Polish
 * Spanish
+* Swedish
 * Ukrainian
 
 ## Requirements
