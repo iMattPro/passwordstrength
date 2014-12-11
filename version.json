@@ -1,8 +1,9 @@
 {
-	"unstable": {
+	"stable": {
 		"1.1": {
-			"current": "1.1.0-b2",
-			"announcement": "https://github.com/VSEphpbb/passwordstrength/releases/tag/v1.1.0-b2",
+			"current": "1.1.0",
+			"download": "https://www.phpbb.com/customise/db/download/106036",
+			"announcement": "https://www.phpbb.com/customise/db/extension/password_strength/",
 			"eol": null,
 			"security": false
 		}
