@@ -30,6 +30,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 
 ### Languages supported:
 * English
+* Arabic
 * Brazilian Portuguese
 * Bulgarian
 * Croatian
