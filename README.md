@@ -28,7 +28,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
 
-### Languages supported:
+## Languages supported:
 * English
 * Arabic
 * Brazilian Portuguese
