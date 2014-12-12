@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Show Password Strength by VSEphpbb</title>
+    <title>Password Strength by VSEphpbb</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -17,8 +17,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Show Password Strength</h1>
-        <p>A MOD for phpBB3</p>
+        <h1>Password Strength</h1>
+        <p>An extension for phpBB3</p>
         <p class="view"><a href="https://github.com/VSEphpbb/passwordstrength">View the Project on GitHub <small>VSEphpbb/passwordstrength</small></a></p>
         <ul>
           <li><a href="https://github.com/VSEphpbb/passwordstrength/zipball/master">Download <strong>ZIP File</strong></a></li>
@@ -44,24 +44,24 @@
 
 <h3>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h3>
-
-<p>Type a sample password to test its strength:</p>
+<p>Type some sample text to test password strength:<br />
+<input type="password" id="new_password" name="new_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;" /></p>
 
 <h3>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h3>
 
 <blockquote>
-<p>Current valid release available from phpBB:
-<a href="https://www.phpbb.com/customise/db/extension/password_strength/">Extension release for phpBB 3.1.x</a>
-<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/">MOD release for phpBB 3.0.x</a></p>
+<p>Current valid release available from phpBB:<br />
+Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/">https://www.phpbb.com/customise/db/extension/password_strength/</a><br />
+MOD <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/">https://www.phpbb.com/customise/db/mod/show_password_strength/</a></p>
 </blockquote>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Support for this project is available through phpBB's Customisation Database:
-<a href="https://www.phpbb.com/customise/db/extension/password_strength/support/">Extension support topics</a>
-<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/support/">MOD support topics</a></p>
+<p>Support for this project is available through phpBB's Customisation Database:<br />
+Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/support/">https://www.phpbb.com/customise/db/extension/password_strength/support/</a><br />
+MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/support/">https://www.phpbb.com/customise/db/mod/show_password_strength/support/</a></p>
       </section>
     </div>
     <footer>
@@ -69,6 +69,54 @@
       <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$.fn.passwordStrength = function() {
+		return this.each(function() {
+			var inputField = $(this),
+				responseArr = [];
+			responseArr[0] = [inputField.css('background-color'), '']; // 0 defaults
+			responseArr[1] = ['#f5a9a9', '{LA_PS_VERY_WEAK}'];         // 1 red, very weak
+			responseArr[2] = ['#f5a9a9', '{LA_PS_VERY_WEAK}'];         // 2 red, very weak
+			responseArr[3] = ['#f5d0a9', '{LA_PS_WEAK}'];              // 3 orange, weak
+			responseArr[4] = ['#f3f781', '{LA_PS_GOOD}'];              // 4 yellow, good
+			responseArr[5] = ['#a9f5a9', '{LA_PS_STRONG}'];            // 5 light green, strong
+			responseArr[6] = ['#00ff00', '{LA_PS_VERY_STRONG}'];       // 6 green, very strong
+			function trigger() {
+				var passwordScore = getPasswordStrength(inputField.val());
+				showStrength(inputField, passwordScore);
+			}
+			function showStrength(field, score) {
+				// Set the correct background color and text indicator for the current score
+				field.css('background-color',responseArr[score][0]);
+				$('#password_strength').html(responseArr[score][1]);
+			}
+			function getPasswordStrength(password) {
+				return 0 +
+				// if password has more than 0 characters give 1 point
+				( password.length > 0 ) +
+				// if password has more than 5 characters give 1 point
+				( password.length > 5 ) +
+				// if password has more than 12 characters give 1 point
+				( password.length > 12 ) +
+				// if password has both lower and uppercase characters give 1 point
+				( /[a-z]/.test(password) && /[A-Z]/.test(password) ) +
+				// if password has at least one number AND at least 1 other character give 1 point
+				( /\d/.test(password) && /\D/.test(password) ) +
+				// if password has a combination of other characters and special characters give 1 point
+				( /[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password) );
+			}
+			inputField
+				.bind('keyup blur', trigger)
+				.after('<div id="password_strength"></div>');
+		});
+	};
+
+	$(function() {
+		$('input[name=new_password]').passwordStrength();
+	});
+	</script>
+
   </body>
 </html>
