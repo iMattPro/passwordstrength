@@ -77,12 +77,12 @@ MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/supp
 			var inputField = $(this),
 				responseArr = [];
 			responseArr[0] = [inputField.css('background-color'), '']; // 0 defaults
-			responseArr[1] = ['#f5a9a9', '{LA_PS_VERY_WEAK}'];         // 1 red, very weak
-			responseArr[2] = ['#f5a9a9', '{LA_PS_VERY_WEAK}'];         // 2 red, very weak
-			responseArr[3] = ['#f5d0a9', '{LA_PS_WEAK}'];              // 3 orange, weak
-			responseArr[4] = ['#f3f781', '{LA_PS_GOOD}'];              // 4 yellow, good
-			responseArr[5] = ['#a9f5a9', '{LA_PS_STRONG}'];            // 5 light green, strong
-			responseArr[6] = ['#00ff00', '{LA_PS_VERY_STRONG}'];       // 6 green, very strong
+			responseArr[1] = ['#f5a9a9', 'Very Weak'];         // 1 red, very weak
+			responseArr[2] = ['#f5a9a9', 'Very Weak'];         // 2 red, very weak
+			responseArr[3] = ['#f5d0a9', 'Weak'];              // 3 orange, weak
+			responseArr[4] = ['#f3f781', 'Good'];              // 4 yellow, good
+			responseArr[5] = ['#a9f5a9', 'Strong'];            // 5 light green, strong
+			responseArr[6] = ['#00ff00', 'Very Strong'];       // 6 green, very strong
 			function trigger() {
 				var passwordScore = getPasswordStrength(inputField.val());
 				showStrength(inputField, passwordScore);
