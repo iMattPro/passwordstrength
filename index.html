@@ -7,7 +7,9 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -17,107 +19,56 @@
       <header>
         <h1>Show Password Strength</h1>
         <p>A MOD for phpBB3</p>
-
-        <p class="view"><a href="https://github.com/VSEphpbb/password_strength">View the Project on GitHub <small>VSEphpbb/password_strength</small></a></p>
-
-
+        <p class="view"><a href="https://github.com/VSEphpbb/passwordstrength">View the Project on GitHub <small>VSEphpbb/passwordstrength</small></a></p>
         <ul>
-          <li><a href="https://github.com/VSEphpbb/password_strength/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/VSEphpbb/password_strength/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/VSEphpbb/password_strength">View On <strong>GitHub</strong></a></li>
+          <li><a href="https://github.com/VSEphpbb/passwordstrength/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/VSEphpbb/passwordstrength/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/VSEphpbb/passwordstrength">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
       <section>
-        <h3>Show Password Strength for phpBB3</h3>
+        <h3>
+<a id="-password-strength" class="anchor" href="#-password-strength" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<img src="http://mattfriedman.me/forum/images/showpass.png" alt="Password Strength" title="Password Strength"> Password Strength</h3>
 
-<p>This MOD will show users how strong (or weak) their password is as they type it into the password field. The password field will display a color code (red for weak to green for strong) as well as a text indicator for ‘Very Weak’, ‘Weak’, ‘Good’, ‘Strong’ and ‘Very Strong’ passwords. This feature is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.</p>
+<p>An enhancement for phpBB3 that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.</p>
 
-<h3>Demo</h3>
+<h3>
+<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser support</h3>
 
-<p>Type a sample password to test its strength:<br />
-<input type="password" id="new_password" size="30" placeholder="password" /></p>
+<p><img src="http://mattfriedman.me/software/browsericons/chrome.png" alt="Chrome 4+" title="Chrome 4+">4+    
+<img src="http://mattfriedman.me/software/browsericons/firefox.png" alt="Firefox 3.5+" title="Firefox 3.5+">3.5+    
+<img src="http://mattfriedman.me/software/browsericons/safari.png" alt="Safari 3+" title="Safari 3+">3+    
+<img src="http://mattfriedman.me/software/browsericons/ie.png" alt="Internet Explorer 6+" title="Internet Explorer 6+">6+    
+<img src="http://mattfriedman.me/software/browsericons/opera.png" alt="Opera 8+" title="Opera 8+">8+</p>
 
-<h3>Download</h3>
+<h3>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h3>
+
+<p>Type a sample password to test its strength:</p>
+
+<h3>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h3>
 
 <blockquote>
 <p>Current valid release available from phpBB:
-<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/">https://www.phpbb.com/customise/db/mod/show_password_strength/</a></p>
+<a href="https://www.phpbb.com/customise/db/extension/password_strength/">Extension release for phpBB 3.1.x</a>
+<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/">MOD release for phpBB 3.0.x</a></p>
 </blockquote>
 
-<h3>Requirements</h3>
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>phpBB 3.0.8 or greater</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>This MOD for phpBB3 is authored by Matt Friedman (<a href="https://github.com/VSEphpbb" class="user-mention">@VSEphpbb</a>).</p>
-
-<h3>Support or Contact</h3>
-
-<p>Support for this MOD is available through phpBB's Customisation Database:
-<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/support/">https://www.phpbb.com/customise/db/mod/show_password_strength/support/</a></p>
+<p>Support for this project is available through phpBB's Customisation Database:
+<a href="https://www.phpbb.com/customise/db/extension/password_strength/support/">Extension support topics</a>
+<a href="https://www.phpbb.com/customise/db/mod/show_password_strength/support/">MOD support topics</a></p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/VSEphpbb">VSEphpbb</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript">
-	(function( $ ){
-		$.fn.passwordStrength = function() {
-			return this.each(function() {
-				var responseArr = [];
-				responseArr[0] = new Array($(this).css("background-color"), "");
-				responseArr[1] = new Array("#f5a9a9", "Very Weak");
-				responseArr[2] = new Array("#f5a9a9", "Very Weak");
-				responseArr[3] = new Array("#f5d0a9", "Weak");
-				responseArr[4] = new Array("#f3f781", "Good");
-				responseArr[5] = new Array("#a9f5a9", "Strong");
-				responseArr[6] = new Array("#00ff00", "Very Strong");
-
-				function trigger() {
-					var passwordScore = getPasswordStrength($(this).val());
-					showStrength($(this), passwordScore);
-				}
-
-				function showStrength(field, score) {
-					// Set the correct background color and text indicator for the current score
-					field.css("background-color",responseArr[score][0]);
-					$("#password_strength").html(responseArr[score][1]);
-				}
-
-				function getPasswordStrength(password) {
-					return 0
-					// if password has more than 0 characters give 1 point
-					+ ( password.length > 0 )
-					// if password has more than 5 characters give 1 point
-					+ ( password.length > 5 )
-					// if password has both lower and uppercase characters give 1 point
-					+ ( /[a-z]/.test(password) && /[A-Z]/.test(password) )
-					// if password has at least one number AND at least 1 other character give 1 point
-					+ ( /\d/.test(password) && /\D/.test(password) )
-					// if password has a combination of other characters and special characters give 1 point
-					+ ( /[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/.test(password) && /\w/.test(password) )
-					// if password has more than 12 characters give 1 point
-					+ ( password.length > 12 );
-				}
-
-				$(this)
-					// Keyup listener
-					.bind("keyup blur", trigger)
-					// Add hidden text indicator
-					.after("<div id='password_strength'></div>");
-			});
-		};
-	})( jQuery );
-	
-	$(document).ready(function() {
-		$("#new_password").passwordStrength();
-	});
-	</script>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/VSEphpbb">VSEphpbb</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
