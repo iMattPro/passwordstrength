@@ -38,14 +38,14 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Dutch
 * Estonian
 * French
-* German (Casual Honorifics)
-* German (Formal Honorifics)
+* German (Casual and Formal Honorifics)
 * Greek
 * Italian
 * Persian
 * Polish
 * Spanish
 * Swedish
+* Turkish
 * Ukrainian
 
 ## Requirements
