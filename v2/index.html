@@ -1,0 +1,56 @@
+<html>
+<body>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<style>
+			body { font-family: 'Open Sans', sans-serif }
+			p { font-size: 13px }
+			h3 { font-weight: normal; font-size: 15px }
+		</style>
+	</head>
+
+	<h3>Password Strength 2 Demo</h3>
+	<p><input type="text" name="new_password" size="40" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>
+		(function($) {
+			'use strict';
+			$.ajax({
+				url: 'zxcvbn.js',
+				dataType: 'script',
+				cache: true,
+				success: function() {
+					$.fn.passwordStrength = function() {
+						return this.each(function() {
+							var inputField = $(this),
+								displayMsg = $('<div/>'),
+								displayArr = [];
+							displayArr[0] = [inputField.css('background-color'), ''];
+							displayArr[1] = ['#f5a9a9', 'Very Weak'];
+							displayArr[2] = ['#f5d0a9', 'Weak'];
+							displayArr[3] = ['#f3f781', 'Good'];
+							displayArr[4] = ['#a9f5a9', 'Strong'];
+							displayArr[5] = ['#00ff00', 'Very Strong'];
+							function trigger() {
+								var inputp = inputField.val(),
+									result = zxcvbn(inputp);
+								showStrength(inputField, (result.score + (inputp.length > 0)));
+							}
+							function showStrength(field, score) {
+								field.css('background-color', displayArr[score][0]);
+								displayMsg.html(displayArr[score][1]);
+							}
+							inputField
+								.bind('keyup blur', trigger)
+								.after(displayMsg);
+						});
+					};
+					$('input[name=new_password]').passwordStrength();
+				}
+			});
+		})(jQuery);
+	</script>
+
+</body>
+</html>
