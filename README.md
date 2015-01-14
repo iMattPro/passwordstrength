@@ -15,15 +15,15 @@ An extension for phpBB 3.1 that will show users how strong (or weak) their passw
 Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/))
 
 ## Features
-* Password strength is indicated visually. The password field will change colors as the user types in a password, displaying red for weak passwords through green for strong passwords.
-* Below the password field a text indicator will also appear describing the password strength as 'Very Weak', 'Weak', 'Good', 'Strong' and 'Very Strong'.
-* Password Strength is active on new user registration, and in the UCP and ACP areas where you can change existing passwords to new passwords.
+* Password field changes colors from red (weak) to green (strong) as the user types in a password.
+* Password strength is also labeled as 'Very Weak', 'Weak', 'Good', 'Strong' or 'Very Strong'.
+* Password Strength is active on new user registration, and in the UCP and ACP areas where you can enter new passwords.
 * Password strength is graded by finding the following criteria in a password:
     1. Contains a minimum of 6 characters
     2. Contains mixed case letters
     3. Contains numbers
     4. Contains special characters
-    5. Password exceeds 12 characters
+    5. Contains more than 12 characters
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
