@@ -3,14 +3,23 @@
 	<head>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<style>
-			body { font-family: 'Open Sans', sans-serif }
-			p { font-size: 13px }
-			h3 { font-weight: normal; font-size: 15px }
+			body { font-family: 'Open Sans', sans-serif; }
+			p { font-size: 13px; margin:0; padding:0; }
+			h3 { font-weight: normal; font-size: 16px; margin-bottom:0; }
 		</style>
 	</head>
 
-	<h3>Password Strength 2 Demo</h3>
-	<p><input type="text" name="new_password" size="40" />
+	<h1>Password Strength Demos</h1>
+
+	<h3>Password Strength v1</h3>
+	<p>Complexity scoring system</p>
+	<p><input type="text" name="new_password1" size="40" /></p>
+
+	<br />
+
+	<h3>Password Strength v2</h3>
+	<p>zxcvbn algorithm</p>
+	<p><input type="text" name="new_password2" size="40" /></p>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script>
@@ -21,7 +30,7 @@
 				dataType: 'script',
 				cache: true,
 				success: function() {
-					$.fn.passwordStrength = function() {
+					$.fn.passwordStrength2 = function() {
 						return this.each(function() {
 							var inputField = $(this),
 								displayMsg = $('<div/>'),
@@ -46,8 +55,45 @@
 								.after(displayMsg);
 						});
 					};
-					$('input[name=new_password]').passwordStrength();
+					$('input[name=new_password2]').passwordStrength2();
 				}
+			});
+			$.fn.passwordStrength1 = function() {
+				return this.each(function() {
+					var inputField = $(this),
+						displayMsg = $('<div/>'),
+						displayArr = [];
+					displayArr[0] = [inputField.css('background-color'), ''];
+					displayArr[1] = ['#f5a9a9', 'Very Weak'];
+					displayArr[2] = ['#f5a9a9', 'Very Weak'];
+					displayArr[3] = ['#f5d0a9', 'Weak'];
+					displayArr[4] = ['#f3f781', 'Good'];
+					displayArr[5] = ['#a9f5a9', 'Strong'];
+					displayArr[6] = ['#00ff00', 'Very Strong'];
+					function trigger() {
+						var passwordScore = getPasswordStrength(inputField.val());
+						showStrength(inputField, passwordScore);
+					}
+					function showStrength(field, score) {
+						field.css('background-color', displayArr[score][0]);
+						displayMsg.html(displayArr[score][1]);
+					}
+					function getPasswordStrength(password) {
+						return 0 +
+						( password.length > 0 ) +
+						( password.length > 5 ) +
+						( password.length > 12 ) +
+						( /[a-z]/.test(password) && /[A-Z]/.test(password) ) +
+						( /\d/.test(password) && /\D/.test(password) ) +
+						( /[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password) );
+					}
+					inputField
+						.bind('keyup blur', trigger)
+						.after(displayMsg);
+				});
+			};
+			$(function() {
+				$('input[name=new_password1]').passwordStrength1();
 			});
 		})(jQuery);
 	</script>
