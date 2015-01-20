@@ -26,7 +26,6 @@
 		(function($) {
 			'use strict';
 			var displayArr = [];
-			displayArr[0] = [inputField.css('background-color'), ''];
 			displayArr[1] = ['#f5a9a9', 'Very Weak'];
 			displayArr[2] = ['#f5d0a9', 'Weak'];
 			displayArr[3] = ['#f3f781', 'Good'];
@@ -41,6 +40,7 @@
 						return this.each(function() {
 							var inputField = $(this),
 								displayMsg = $('<div/>');
+							displayArr[0] = [inputField.css('background-color'), ''];
 							function trigger() {
 								var inputp = inputField.val(),
 									result = zxcvbn(inputp);
@@ -62,6 +62,7 @@
 				return this.each(function() {
 					var inputField = $(this),
 						displayMsg = $('<div/>');
+					displayArr[0] = [inputField.css('background-color'), ''];
 					function scorePassword(password) {
 						return 0
 							+ ( password.length > 5 )
