@@ -1,3 +1,3 @@
-<!-- IF S_REGISTRATION or S_CHANGE_PASSWORD -->
-	<!-- INCLUDE password_strength.html -->
-<!-- ENDIF -->
+{% if S_REGISTRATION or S_CHANGE_PASSWORD %}
+	{% include "password_strength.html" %}
+{% endif %}
