@@ -25,6 +25,13 @@
 	<script>
 		(function($) {
 			'use strict';
+			var displayArr = [];
+			displayArr[0] = [inputField.css('background-color'), ''];
+			displayArr[1] = ['#f5a9a9', 'Very Weak'];
+			displayArr[2] = ['#f5d0a9', 'Weak'];
+			displayArr[3] = ['#f3f781', 'Good'];
+			displayArr[4] = ['#a9f5a9', 'Strong'];
+			displayArr[5] = ['#00ff00', 'Very Strong'];
 			$.ajax({
 				url: 'zxcvbn.js',
 				dataType: 'script',
@@ -33,14 +40,7 @@
 					$.fn.passwordStrength2 = function() {
 						return this.each(function() {
 							var inputField = $(this),
-								displayMsg = $('<div/>'),
-								displayArr = [];
-							displayArr[0] = [inputField.css('background-color'), ''];
-							displayArr[1] = ['#f5a9a9', 'Very Weak'];
-							displayArr[2] = ['#f5d0a9', 'Weak'];
-							displayArr[3] = ['#f3f781', 'Good'];
-							displayArr[4] = ['#a9f5a9', 'Strong'];
-							displayArr[5] = ['#00ff00', 'Very Strong'];
+								displayMsg = $('<div/>');
 							function trigger() {
 								var inputp = inputField.val(),
 									result = zxcvbn(inputp);
@@ -61,31 +61,24 @@
 			$.fn.passwordStrength1 = function() {
 				return this.each(function() {
 					var inputField = $(this),
-						displayMsg = $('<div/>'),
-						displayArr = [];
-					displayArr[0] = [inputField.css('background-color'), ''];
-					displayArr[1] = ['#f5a9a9', 'Very Weak'];
-					displayArr[2] = ['#f5a9a9', 'Very Weak'];
-					displayArr[3] = ['#f5d0a9', 'Weak'];
-					displayArr[4] = ['#f3f781', 'Good'];
-					displayArr[5] = ['#a9f5a9', 'Strong'];
-					displayArr[6] = ['#00ff00', 'Very Strong'];
-					function trigger() {
-						var passwordScore = getPasswordStrength(inputField.val());
-						showStrength(inputField, passwordScore);
+						displayMsg = $('<div/>');
+					function scorePassword(password) {
+						return 0
+							+ ( password.length > 5 )
+							+ ( password.length > 12 )
+							+ ( /[a-z]/.test(password) && /[A-Z]/.test(password) )
+							+ ( /\d/.test(password) && /\D/.test(password) )
+							+ ( /[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password) );
 					}
 					function showStrength(field, score) {
 						field.css('background-color', displayArr[score][0]);
 						displayMsg.html(displayArr[score][1]);
 					}
-					function getPasswordStrength(password) {
-						return 0 +
-						( password.length > 0 ) +
-						( password.length > 5 ) +
-						( password.length > 12 ) +
-						( /[a-z]/.test(password) && /[A-Z]/.test(password) ) +
-						( /\d/.test(password) && /\D/.test(password) ) +
-						( /[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password) );
+					function trigger() {
+						var input = inputField.val(),
+							score = Math.max(scorePassword(input), + (input.length > 0));
+						console.log(score);
+						showStrength(inputField, score);
 					}
 					inputField
 						.bind('keyup blur', trigger)
