@@ -15,32 +15,17 @@ class listener_test extends \phpbb_test_case
 	/** @var \vse\passwordstrength\event\listener */
 	protected $listener;
 
-	/**
-	* Create our event listener
-	*
-	* @access protected
-	*/
 	protected function set_listener()
 	{
 		$this->listener = new \vse\passwordstrength\event\listener();
 	}
 
-	/**
-	* Test the event listener is constructed correctly
-	*
-	* @access public
-	*/
 	public function test_construct()
 	{
 		$this->set_listener();
 		$this->assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
 	}
 
-	/**
-	* Test the event listener is subscribing events
-	*
-	* @access public
-	*/
 	public function test_getSubscribedEvents()
 	{
 		$this->assertEquals(array(
@@ -48,12 +33,6 @@ class listener_test extends \phpbb_test_case
 		), array_keys(\vse\passwordstrength\event\listener::getSubscribedEvents()));
 	}
 
-	/**
-	* Data set for test_load_language_on_setup
-	*
-	* @return array Array of test data
-	* @access public
-	*/
 	public function load_language_on_setup_data()
 	{
 		return array(
@@ -88,10 +67,7 @@ class listener_test extends \phpbb_test_case
 	}
 
 	/**
-	* Test the load_language_on_setup event
-	*
 	* @dataProvider load_language_on_setup_data
-	* @access public
 	*/
 	public function test_load_language_on_setup($lang_set_ext, $expected_contains)
 	{
