@@ -43,6 +43,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Italian
 * Persian
 * Polish
+* Russian
 * Spanish
 * Swedish
 * Turkish
