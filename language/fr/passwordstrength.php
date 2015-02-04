@@ -37,7 +37,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'PS_VERY_WEAK'		=> 'Très faible',
 	'PS_WEAK'			=> 'Faible',
-	'PS_GOOD'			=> 'Ok',
+	'PS_GOOD'			=> 'Bon',
 	'PS_STRONG'			=> 'Complexe',
 	'PS_VERY_STRONG'	=> 'Très complexe',
 ));
