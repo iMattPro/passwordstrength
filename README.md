@@ -41,6 +41,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * German (Casual and Formal Honorifics)
 * Greek
 * Italian
+* Japanese
 * Persian
 * Polish
 * Russian
