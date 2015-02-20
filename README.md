@@ -33,6 +33,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Arabic
 * Brazilian Portuguese
 * Bulgarian
+* Chinese (Simplified and Traditional)
 * Croatian
 * Czech
 * Dutch
