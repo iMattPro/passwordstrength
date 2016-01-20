@@ -1,20 +1,20 @@
 <?php
 /**
-*
-* Password Strength
-*
-* @copyright (c) 2013 Matt Friedman
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * Password Strength
+ *
+ * @copyright (c) 2013 Matt Friedman
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace vse\passwordstrength\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* Event listener
-*/
+ * Event listener
+ */
 class listener implements EventSubscriberInterface
 {
 	/** @var \phpbb\config\config */
@@ -57,20 +57,20 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* Load language file during user setup
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
+	 * Load language file during user setup
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
 	public function password_strength_setup($event)
 	{
-		$lang_set_ext = $event['lang_set_ext'];
+		$lang_set_ext = $event->offsetGet('lang_set_ext');
 		$lang_set_ext[] = array(
 			'ext_name' => 'vse/passwordstrength',
 			'lang_set' => 'passwordstrength',
 		);
-		$event['lang_set_ext'] = $lang_set_ext;
+		$event->offsetSet('lang_set_ext', $lang_set_ext);
 
 		$this->template->assign_var('S_PWS_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
 	}
