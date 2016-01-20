@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.",
 	"homepage": "https://github.com/VSEphpbb/passwordstrength",
-	"version": "1.1.1-dev",
+	"version": "1.2.0-dev",
 	"keywords": ["phpbb", "extension", "password", "strength"],
 	"license": "GPL-2.0",
 	"authors": [
@@ -23,7 +23,7 @@
 	"extra": {
 		"display-name": "Password Strength",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.0-RC2"
+			"phpbb/phpbb": ">=3.1.0"
 		},
 		"version-check": {
 			"host": "www.phpbb.com",
