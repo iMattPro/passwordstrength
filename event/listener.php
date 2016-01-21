@@ -59,18 +59,18 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Load language file during user setup
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
 	public function password_strength_setup($event)
 	{
-		$lang_set_ext = $event->offsetGet('lang_set_ext');
+		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = array(
 			'ext_name' => 'vse/passwordstrength',
 			'lang_set' => 'passwordstrength',
 		);
-		$event->offsetSet('lang_set_ext', $lang_set_ext);
+		$event['lang_set_ext'] = $lang_set_ext;
 
 		$this->template->assign_var('S_PWS_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
 	}
@@ -87,9 +87,10 @@ class listener implements EventSubscriberInterface
 		if ($event['mode'] == 'registration' && isset($event['display_vars']['vars']['pass_complex']))
 		{
 			$this->user->add_lang_ext('vse/passwordstrength', 'acp_passwordstrength');
-			$display_vars = $event->offsetGet('display_vars');
 
-			$my_config_vars = array(
+			$display_vars = $event['display_vars'];
+
+			$pws_config_vars = array(
 				'password_strength_type' => array(
 					'lang'		=> 'ACP_PASSWORD_STRENGTH_TYPE',
 					'validate'	=> 'int:0:99',
@@ -99,9 +100,9 @@ class listener implements EventSubscriberInterface
 				),
 			);
 
-			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $my_config_vars, array('after' => 'pass_complex'));
+			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'pass_complex'));
 
-			$event->offsetSet('display_vars', $display_vars);
+			$event['display_vars'] = $display_vars;
 		}
 	}
 
