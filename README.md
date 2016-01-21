@@ -1,15 +1,8 @@
 # ![Password Strength](http://mattfriedman.me/forum/images/showpass.png "Password Strength") Password Strength
 
-An extension for phpBB 3.1 that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
+An extension for phpBB that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
 
 [![Build Status](https://travis-ci.org/VSEphpbb/passwordstrength.png?branch=extension)](https://travis-ci.org/VSEphpbb/passwordstrength)
-
-## Browser support
-![Chrome 4+](http://vsephpbb.github.io/browsericons/chrome.png "Chrome 4+")4+ &nbsp;&nbsp;&nbsp;
-![Firefox 3.5+](http://vsephpbb.github.io/browsericons/firefox.png "Firefox 3.5+")3.5+ &nbsp;&nbsp;&nbsp;
-![Safari 3+](http://vsephpbb.github.io/browsericons/safari.png "Safari 3+")3+ &nbsp;&nbsp;&nbsp;
-![Internet Explorer 6+](http://vsephpbb.github.io/browsericons/ie.png "Internet Explorer 6+")6+ &nbsp;&nbsp;&nbsp;
-![Opera 8+](http://vsephpbb.github.io/browsericons/opera.png "Opera 8+")8+
 
 ## Demo
 Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/))
@@ -18,41 +11,15 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Password field changes colors from red (weak) to green (strong) as the user types in a password.
 * Password strength is also labeled as 'Very Weak', 'Weak', 'Good', 'Strong' or 'Very Strong'.
 * Password Strength is active on new user registration, and in the UCP and ACP areas where you can enter new passwords.
-* Password strength is graded by finding the following criteria in a password:
-    1. Contains a minimum of 6 characters
-    2. Contains mixed case letters
-    3. Contains numbers
-    4. Contains special characters
-    5. Contains more than 12 characters
+* Password Strength is scored using one of the available algorithms:
+    1. __Measured Complexity__ is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.
+    2. __zxcvbn algorithm__ (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for human-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
 
-## Languages supported:
-* English
-* Arabic
-* Brazilian Portuguese
-* Bulgarian
-* Chinese (Simplified and Traditional)
-* Croatian
-* Czech
-* Dutch
-* Estonian
-* French
-* German (Casual and Formal Honorifics)
-* Greek
-* Italian
-* Japanese
-* Persian
-* Polish
-* Russian
-* Spanish
-* Swedish
-* Turkish
-* Ukrainian
-
 ## Requirements
-* phpBB 3.1.0-RC2 or higher
+* phpBB 3.1.0 or higher
 * PHP 5.3.3 or higher
 
 ## Installation
@@ -60,11 +27,15 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 2. Unzip the downloaded release and copy it to the `ext` directory of your phpBB board.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
 4. Look for `Password Strength` under the Disabled Extensions list, and click its `Enable` link.
+5. Choose a Password Strength algorithm under `User registration settings -> Password strength type`.
 
 ## Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for Password Strength.
 3. To permanently uninstall, click `Delete Data`, then delete the `passwordstrength` folder from `phpBB/ext/vse/`.
+
+## Disclaimer
+Password Strength is intended to encourage your forum users to use stronger passwords. It does not guarantee protection against password attacks, nor does it force your users to use strong passwords. The business of scoring password strength is a tricky and hotly debated subject and you are encouraged to decide which of the strength test models included in this extension will work best for your forum.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
