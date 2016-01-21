@@ -39,13 +39,16 @@
 <p><img src="http://vsephpbb.github.io/browsericons/chrome.png" alt="Chrome 4+" title="Chrome 4+">4+    
 <img src="http://vsephpbb.github.io/browsericons/firefox.png" alt="Firefox 3.5+" title="Firefox 3.5+">3.5+    
 <img src="http://vsephpbb.github.io/browsericons/safari.png" alt="Safari 3+" title="Safari 3+">3+    
-<img src="http://vsephpbb.github.io/browsericons/ie.png" alt="Internet Explorer 6+" title="Internet Explorer 6+">6+    
+<img src="http://vsephpbb.github.io/browsericons/ie.png" alt="Internet Explorer 6+" title="Internet Explorer 8+">8+    
 <img src="http://vsephpbb.github.io/browsericons/opera.png" alt="Opera 8+" title="Opera 8+">8+</p>
 
 <h3>
-<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h3>
-<p>Type some sample text to test password strength:<br />
-<input type="password" id="new_password" name="new_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;" /></p>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demos</h3>
+<p>Test password strength using measured complexity:<br />
+<input type="text" id="complex_password" name="complex_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" /></p>
+
+<p>Test password strength using the &quot;<a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>&quot; algorithm:<br />
+<input type="text" id="zxcvbn_password" name="zxcvbn_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" /></p>
 
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h3>
@@ -71,51 +74,56 @@ MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/supp
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript">
-	$.fn.passwordStrength = function() {
-		return this.each(function() {
-			var inputField = $(this),
-				responseArr = [];
-			responseArr[0] = [inputField.css('background-color'), '']; // 0 defaults
-			responseArr[1] = ['#f5a9a9', 'Very Weak'];         // 1 red, very weak
-			responseArr[2] = ['#f5a9a9', 'Very Weak'];         // 2 red, very weak
-			responseArr[3] = ['#f5d0a9', 'Weak'];              // 3 orange, weak
-			responseArr[4] = ['#f3f781', 'Good'];              // 4 yellow, good
-			responseArr[5] = ['#a9f5a9', 'Strong'];            // 5 light green, strong
-			responseArr[6] = ['#00ff00', 'Very Strong'];       // 6 green, very strong
-			function trigger() {
-				var passwordScore = getPasswordStrength(inputField.val());
-				showStrength(inputField, passwordScore);
+	<script>
+		(function($) {
+			'use strict';
+			$.fn.passwordStrength = function(type) {
+				return this.each(function() {
+					var inputField = $(this),
+						displayMsg = $('<span/>'),
+						displayArr = [];
+					displayArr[0] = [inputField.css('background-color'), '']; // 0 defaults
+					displayArr[1] = ['#f5a9a9', 'Very Weak']; // 1 red, very weak
+					displayArr[2] = ['#f5d0a9', 'Weak']; // 2 orange, weak
+					displayArr[3] = ['#f3f781', 'Good']; // 3 yellow, good
+					displayArr[4] = ['#a9f5a9', 'Strong']; // 4 light green, strong
+					displayArr[5] = ['#00ff00', 'Very Strong']; // 5 green, very strong
+					function showStrength(field, score) {
+						field.css('background-color', displayArr[score][0]);
+						displayMsg.html(displayArr[score][1]);
+					}
+					function trigger() {
+						var input = inputField.val(), score = 0;
+						if (type === 'zxcvbn') {
+							score = zxcvbn(input).score + (input.length > 0);
+						} else {
+							score = Math.max(scoreComplexity(input), +(input.length > 0));
+						}
+						showStrength(inputField, score);
+					}
+					inputField.bind('keyup blur', trigger).after(displayMsg);
+				});
+			};
+			function scoreComplexity(password) {
+				return 0
+					+ (password.length > 5) // more than 5 chars
+					+ (password.length > 12) // more than 12 chars
+					+ (/[a-z]/.test(password) && /[A-Z]/.test(password)) // mixed case chars
+					+ (/\d/.test(password) && /\D/.test(password)) // at least 1 number and 1 other char
+					+ (/[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password)); // letters and special chars
 			}
-			function showStrength(field, score) {
-				// Set the correct background color and text indicator for the current score
-				field.css('background-color',responseArr[score][0]);
-				$('#password_strength').html(responseArr[score][1]);
-			}
-			function getPasswordStrength(password) {
-				return 0 +
-				// if password has more than 0 characters give 1 point
-				( password.length > 0 ) +
-				// if password has more than 5 characters give 1 point
-				( password.length > 5 ) +
-				// if password has more than 12 characters give 1 point
-				( password.length > 12 ) +
-				// if password has both lower and uppercase characters give 1 point
-				( /[a-z]/.test(password) && /[A-Z]/.test(password) ) +
-				// if password has at least one number AND at least 1 other character give 1 point
-				( /\d/.test(password) && /\D/.test(password) ) +
-				// if password has a combination of other characters and special characters give 1 point
-				( /[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password) );
-			}
-			inputField
-				.bind('keyup blur', trigger)
-				.after('<div id="password_strength"></div>');
-		});
-	};
-
-	$(function() {
-		$('input[name=new_password]').passwordStrength();
-	});
+			$(function() {
+				$.ajax({
+					url: './zxcvbn/zxcvbn.js',
+					dataType: 'script',
+					cache: true,
+					success: function() {
+						$('input[name=zxcvbn_password]').passwordStrength('zxcvbn');
+					}
+				});
+				$('input[name=complex_password]').passwordStrength('complex');
+			});
+		})(jQuery);
 	</script>
 
   </body>
