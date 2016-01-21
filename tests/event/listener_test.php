@@ -111,11 +111,6 @@ class listener_test extends \phpbb_test_case
 		}
 	}
 
-	/**
-	 * Data set for test_password_strength_acp_options
-	 *
-	 * @return array Array of test data
-	 */
 	public function password_strength_acp_options_data()
 	{
 		return array(
@@ -143,11 +138,6 @@ class listener_test extends \phpbb_test_case
 	}
 
 	/**
-	 * Test the password_strength_acp_options event
-	 *
-	 * @param $mode
-	 * @param $display_vars
-	 * @param $expected_keys
 	 * @dataProvider password_strength_acp_options_data
 	 */
 	public function test_password_strength_acp_options($mode, $display_vars, $expected_keys)
@@ -155,7 +145,7 @@ class listener_test extends \phpbb_test_case
 		$this->set_listener();
 
 		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-		$dispatcher->addListener('core.acp_board_config_edit_add', array($this->listener, 'password_strength_options'));
+		$dispatcher->addListener('core.acp_board_config_edit_add', array($this->listener, 'password_strength_acp_options'));
 
 		$event_data = array('display_vars', 'mode');
 		$event = new \phpbb\event\data(compact($event_data));

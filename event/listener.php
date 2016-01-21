@@ -92,8 +92,8 @@ class listener implements EventSubscriberInterface
 
 			$pws_config_vars = array(
 				'password_strength_type' => array(
-					'lang'		=> 'ACP_PASSWORD_STRENGTH_TYPE',
-					'validate'	=> 'int:0:99',
+					'lang'		=> 'PASSWORD_STRENGTH_TYPE',
+					'validate'	=> 'int',
 					'type'		=> 'select',
 					'function'	=> array($this, 'select_password_strength'),
 					'explain'	=> true
@@ -109,12 +109,12 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Select Password Strength type
 	 *
-	 * @param $selected_value
-	 * @param $key
+	 * @param string $selected_value
+	 * @param string $key
 	 * @return string
 	 * @access public
 	 */
-	public function select_password_strength($selected_value, $key)
+	public function select_password_strength($selected_value, $key = '')
 	{
 		$pws_type_ary = array(
 			0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
