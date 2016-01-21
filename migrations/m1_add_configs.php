@@ -14,7 +14,7 @@ class m1_add_configs extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['password_strength_type']);
+		return $this->config->offsetExists('password_strength_type');
 	}
 
 	static public function depends_on()
