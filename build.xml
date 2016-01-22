@@ -13,7 +13,6 @@
 		Remove some unnecessary files/directories
 		${dir}/ is the folder of your extension, e.g. ext/nickvergessen/newspage/
 		-->
-		<delete dir="${dir}/dev" />
 		<delete dir="${dir}/tests" />
 		<delete dir="${dir}/travis" />
 		<delete dir="${dir}/vendor" />
