@@ -44,11 +44,14 @@
 
 <h3>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demos</h3>
-<p>Test password strength using measured complexity:<br />
-<input type="text" id="complex_password" name="complex_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" /></p>
+<p>
+<details><summary>Test password strength using Complexity:<br/></summary>Complexity is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.<br/></details>
+<input type="text" id="complex_password" name="complex_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" />
+</p>
 
-<p>Test password strength using the &quot;<a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>&quot; algorithm:<br />
-<input type="text" id="zxcvbn_password" name="zxcvbn_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" /></p>
+<p><details><summary>Test password strength using the &quot;<a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>&quot; algorithm:<br/></summary>zxcvbn (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for user-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.<br/></details>
+<input type="text" id="zxcvbn_password" name="zxcvbn_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" />
+</p>
 
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h3>
