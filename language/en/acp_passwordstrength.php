@@ -34,8 +34,8 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PASSWORD_STRENGTH_TYPE'			=> 'Password strength type',
-	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Choose an algorithm for determining the strength of a password.<br/><strong>Measured Complexity</strong> looks for mixed characters, numbers, symbols and length in a password. This is commonly used for strong passwords that are hard to remember.<br/><strong>zxcvbn</strong> (used by DropBox) tests how easily a password can be guessed, comparing the password against a dictionary of common words and pattern matching. This can be used for strong passwords that are more friendly and memorable yet still secure.</strong>',
-	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Measured Complexity',
-	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> '“zxcvbn” algorithm',
+	'PASSWORD_STRENGTH_TYPE'			=> 'Password strength algorithm',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Choose an algorithm for determining the strength of a password.<br/><strong>Complexity</strong> looks for mixed characters, numbers, symbols and length in a password, encouraging complex passwords.<br/><strong>zxcvbn</strong> (by DropBox) calculates how easily a password can be guessed, allowing for strong and secure user-friendly passwords.</strong>',
+	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Complexity',
+	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algorithm',
 ));
