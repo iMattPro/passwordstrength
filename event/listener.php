@@ -72,7 +72,7 @@ class listener implements EventSubscriberInterface
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
 
-		$this->template->assign_var('S_PWS_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
+		$this->template->assign_var('S_USE_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
 	}
 
 	/**
