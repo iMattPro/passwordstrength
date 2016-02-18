@@ -24,44 +24,22 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
     3. Contains numbers
     4. Contains special characters
     5. Contains more than 12 characters
+* Multiple languages are supported. View the pre-installed [localizations](https://github.com/VSEphpbb/passwordstrength/tree/master/language).
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
-
-## Languages supported:
-* English
-* Arabic
-* Brazilian Portuguese
-* Bulgarian
-* Chinese (Simplified and Traditional)
-* Croatian
-* Czech
-* Dutch
-* Estonian
-* French
-* German (Casual and Formal Honorifics)
-* Greek
-* Italian
-* Japanese
-* Persian
-* Polish
-* Russian
-* Spanish
-* Swedish
-* Turkish
-* Ukrainian
 
 ## Requirements
 * phpBB 3.1.0-RC2 or higher
 * PHP 5.3.3 or higher
 
-## Installation
+## Install
 1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/password_strength/).
 2. Unzip the downloaded release and copy it to the `ext` directory of your phpBB board.
 3. Navigate in the ACP to `Customise -> Manage extensions`.
-4. Look for `Password Strength` under the Disabled Extensions list, and click its `Enable` link.
+4. Look for `Password Strength` under the Disabled Extensions list and click its `Enable` link.
 
-## Uninstallation
+## Uninstall
 1. Navigate in the ACP to `Customise -> Manage extensions`.
 2. Click the `Disable` link for Password Strength.
 3. To permanently uninstall, click `Delete Data`, then delete the `passwordstrength` folder from `phpBB/ext/vse/`.
