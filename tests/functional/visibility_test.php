@@ -23,13 +23,19 @@ class visibility_test extends \phpbb_functional_test_case
 	public function setUp()
 	{
 		parent::setUp();
-		$this->add_lang_ext('vse/passwordstrength', 'passwordstrength');
+		$this->add_lang_ext('vse/passwordstrength', array('passwordstrength', 'acp_passwordstrength'));
 	}
 
 	public function test_acp_pages()
 	{
 		$this->login();
 		$this->admin_login();
+
+		// Test ACP settings page
+		$crawler = self::request('GET', "adm/index.php?i=acp_board&mode=registration&sid={$this->sid}");
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE', $crawler->filter('html')->text());
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_COMPLEX', $crawler->filter('html')->text());
+		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_ZXCVBN', $crawler->filter('html')->text());
 
 		// Test password strength on ACP Account settings page
 		$crawler = self::request('GET', "adm/index.php?i=acp_users&mode=overview&sid={$this->sid}");
