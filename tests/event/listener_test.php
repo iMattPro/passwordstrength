@@ -33,7 +33,9 @@ class listener_test extends \phpbb_test_case
 		$this->config = new \phpbb\config\config(array());
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
-		$this->user = $this->getMock('\phpbb\user', array(), array('\phpbb\datetime'));
+		$this->user = $this->getMockBuilder('\phpbb\user')
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 	protected function set_listener()
