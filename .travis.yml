@@ -35,11 +35,10 @@ env:
     - EPV="1"          # Should we run EPV (Extension Pre Validator) on your code?
     - PHPBB_BRANCH="3.1.x"
 
-#branches:
-#  only:
-#    - master
-#    - develop
-#    - /^develop-.*$/
+branches:
+  only:
+    - master
+    - /^\d+(\.\d+)?\.x$/
 
 install:
   - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
