@@ -84,7 +84,7 @@ class listener implements EventSubscriberInterface
 	 */
 	public function password_strength_acp_options($event)
 	{
-		if ($event['mode'] == 'registration' && isset($event['display_vars']['vars']['pass_complex']))
+		if ($event['mode'] === 'registration' && array_key_exists('pass_complex', $event['display_vars']['vars']))
 		{
 			$this->user->add_lang_ext('vse/passwordstrength', 'acp_passwordstrength');
 
