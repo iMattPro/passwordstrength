@@ -24,6 +24,8 @@ class visibility_test extends \phpbb_functional_test_case
 	{
 		parent::setUp();
 		$this->add_lang_ext('vse/passwordstrength', array('passwordstrength', 'acp_passwordstrength'));
+
+		$this->purge_cache();
 	}
 
 	public function test_acp_pages()
