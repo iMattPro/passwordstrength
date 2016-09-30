@@ -32,7 +32,6 @@ class listener implements EventSubscriberInterface
 	 * @param \phpbb\config\config     $config   Config object
 	 * @param \phpbb\template\template $template Template object
 	 * @param \phpbb\user              $user     User object
-	 * @access public
 	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user)
 	{
@@ -45,10 +44,8 @@ class listener implements EventSubscriberInterface
 	 * Assign functions defined in this class to event listeners in the core
 	 *
 	 * @return array
-	 * @static
-	 * @access public
 	 */
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.user_setup' 					=> 'password_strength_setup',
@@ -60,8 +57,6 @@ class listener implements EventSubscriberInterface
 	 * Load language file during user setup
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
-	 * @access public
 	 */
 	public function password_strength_setup($event)
 	{
@@ -79,8 +74,6 @@ class listener implements EventSubscriberInterface
 	 * Add Password Strength settings to the ACP
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
-	 * @access public
 	 */
 	public function password_strength_acp_options($event)
 	{
@@ -112,7 +105,6 @@ class listener implements EventSubscriberInterface
 	 * @param string $selected_value
 	 * @param string $key
 	 * @return string
-	 * @access public
 	 */
 	public function select_password_strength($selected_value, $key = '')
 	{
