@@ -2,9 +2,9 @@
 /**
 *
 * Password Strength extension for the phpBB Forum Software package.
-* Translated by EnYgmA http://www.phpbb-assistance.com/ &  Galixte (http://www.galixte.com)
+* French translation by Galixte (http://www.galixte.com)
 *
-* @copyright (c) 2013 Matt Friedman
+* @copyright (c) 2016 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -39,9 +39,8 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'Trop simple',
-	'PS_WEAK'			=> 'Faible',
-	'PS_GOOD'			=> 'Bon',
-	'PS_STRONG'			=> 'Complexe',
-	'PS_VERY_STRONG'	=> 'Très complexe',
+	'PASSWORD_STRENGTH_TYPE'			=> 'Algorithme de robustesse du mot de passe',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Permet de choisir un algorithme pour déterminer la force du mot de passe.<br/>La <strong>complexité</strong> du mot de passe dépend de la diversité des caractères, nombres, symboles utilisés ainsi que de sa longueur.<br/>L’algorithme <strong>zxcvbn</strong> (créé par DropBox) calcules comment un mot de passe peut être deviné facilement, permettant ainsi de créer des mots de passe pratiques et robustes.',
+	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Complexité',
+	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'Algorithme zxcvbn',
 ));
