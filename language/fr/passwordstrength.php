@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* Password Strength [French]
-* Translated by EnYgmA http://www.phpbb-assistance.com/
+* Password Strength extension for the phpBB Forum Software package.
+* Translated by EnYgmA http://www.phpbb-assistance.com/ &  Galixte (http://www.galixte.com)
 *
 * @copyright (c) 2013 Matt Friedman
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -33,9 +33,13 @@ if (empty($lang) || !is_array($lang))
 // You do not need this where single placeholders are used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
+//
+// Some characters you may want to copy&paste:
+// ’ « » “ ” …
+//
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'Très faible',
+	'PS_VERY_WEAK'		=> 'Trop simple',
 	'PS_WEAK'			=> 'Faible',
 	'PS_GOOD'			=> 'Bon',
 	'PS_STRONG'			=> 'Complexe',
