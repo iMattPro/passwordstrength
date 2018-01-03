@@ -1,4 +1,4 @@
-# ![Password Strength](http://mattfriedman.me/forum/images/showpass.png "Password Strength") Password Strength
+# ![Password Strength](http://vsephpbb.github.io/logo/showpass.png "Password Strength") Password Strength
 
 An extension for phpBB that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
 
