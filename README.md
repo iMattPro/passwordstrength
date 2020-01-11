@@ -21,7 +21,9 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
 
 ## Minimum Requirements
-* phpBB 3.1.0 or phpBB 3.2.0
+* phpBB 3.1.0
+* phpBB 3.2.0
+* phpBB 3.3.0
 * PHP 5.3.3
 
 ## Install
