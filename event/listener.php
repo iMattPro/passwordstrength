@@ -88,8 +88,9 @@ class listener implements EventSubscriberInterface
 					'lang'		=> 'PASSWORD_STRENGTH_TYPE',
 					'validate'	=> 'int',
 					'type'		=> 'select',
-					'function'	=> array($this, 'select_password_strength'),
-					'explain'	=> true
+					'function'	=> 'build_select',
+					'params'	=> array(array(0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX', 1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'), '{CONFIG_VALUE}'),
+					'explain'	=> true,
 				),
 			);
 
@@ -97,28 +98,5 @@ class listener implements EventSubscriberInterface
 
 			$event['display_vars'] = $display_vars;
 		}
-	}
-
-	/**
-	 * Select Password Strength type
-	 *
-	 * @param string $selected_value
-	 * @param string $key
-	 * @return string
-	 */
-	public function select_password_strength($selected_value, $key = '')
-	{
-		$pws_type_ary = array(
-			0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
-			1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'
-		);
-		$pass_char_options = '';
-		foreach ($pws_type_ary as $pws_id => $pws_type)
-		{
-			$selected = ($selected_value == $pws_id) ? ' selected="selected"' : '';
-			$pass_char_options .= '<option value="' . $pws_id . '"' . $selected . '>' . $this->user->lang($pws_type) . '</option>';
-		}
-
-		return $pass_char_options;
 	}
 }

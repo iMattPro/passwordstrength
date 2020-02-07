@@ -164,30 +164,4 @@ class listener_test extends \phpbb_test_case
 
 		$this->assertEquals($expected_keys, $keys);
 	}
-
-	public function select_password_strength_test_data()
-	{
-		return array(
-			array('', '<option value="0" selected="selected">PASSWORD_STRENGTH_TYPE_COMPLEX</option><option value="1">PASSWORD_STRENGTH_TYPE_ZXCVBN</option>'),
-			array('0', '<option value="0" selected="selected">PASSWORD_STRENGTH_TYPE_COMPLEX</option><option value="1">PASSWORD_STRENGTH_TYPE_ZXCVBN</option>'),
-			array('1', '<option value="0">PASSWORD_STRENGTH_TYPE_COMPLEX</option><option value="1" selected="selected">PASSWORD_STRENGTH_TYPE_ZXCVBN</option>'),
-			array('10', '<option value="0">PASSWORD_STRENGTH_TYPE_COMPLEX</option><option value="1">PASSWORD_STRENGTH_TYPE_ZXCVBN</option>'),
-		);
-	}
-
-	/**
-	 * @dataProvider select_password_strength_test_data
-	 */
-	public function test_select_password_strength($selected, $expected)
-	{
-		$this->user->expects($this->any())
-			->method('lang')
-			->will($this->returnArgument(0));
-
-		$this->set_listener();
-
-		$html = $this->listener->select_password_strength($selected);
-
-		$this->assertEquals($expected, $html);
-	}
 }
