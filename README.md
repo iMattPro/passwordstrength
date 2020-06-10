@@ -1,12 +1,12 @@
-# ![Password Strength](http://vsephpbb.github.io/logo/showpass.png "Password Strength") Password Strength
+# ![Password Strength](https://imattpro.github.io/logo/showpass.png "Password Strength") Password Strength
 
 An extension for phpBB that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
 
-[![Build Status](https://travis-ci.org/VSEphpbb/passwordstrength.png?branch=extension)](https://travis-ci.org/VSEphpbb/passwordstrength)
+[![Build Status](https://travis-ci.org/iMattPro/passwordstrength.png?branch=extension)](https://travis-ci.org/iMattPro/passwordstrength)
 [![Latest Stable Version](https://poser.pugx.org/vse/passwordstrength/v/stable)](https://www.phpbb.com/customise/db/extension/password_strength/)
 
 ## Demo
-Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstrength/))
+Try it out yourself here: ([Online Demo](https://imattpro.github.io/passwordstrength/))
 
 ## Features
 * Password field changes colors from red (weak) to green (strong) as the user types in a password.
@@ -15,7 +15,7 @@ Try it out yourself here: ([Online Demo](http://vsephpbb.github.io/passwordstren
 * Password Strength is scored using one of the available algorithms:
     1. __Complexity__ is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.
     2. __zxcvbn algorithm__ (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for user-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.
-* Multiple languages are supported. View the pre-installed [localizations](https://github.com/VSEphpbb/passwordstrength/tree/master/language).
+* Multiple languages are supported. View the pre-installed [localizations](https://github.com/iMattPro/passwordstrength/tree/master/language).
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
