@@ -20,7 +20,7 @@ class visibility_test extends \phpbb_functional_test_case
 		return array('vse/passwordstrength');
 	}
 
-	public function setUp(): void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->add_lang_ext('vse/passwordstrength', array('passwordstrength', 'acp_passwordstrength'));
