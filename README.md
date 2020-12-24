@@ -2,7 +2,8 @@
 
 An extension for phpBB that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.
 
-[![Build Status](https://travis-ci.org/iMattPro/passwordstrength.png?branch=extension)](https://travis-ci.org/iMattPro/passwordstrength)
+[![Build Status](https://github.com/iMattPro/passwordstrength/workflows/Tests/badge.svg)](https://github.com/iMattPro/passwordstrength/actions)
+[![codecov](https://codecov.io/gh/iMattPro/passwordstrength/branch/master/graph/badge.svg?token=3D2AV28A3S)](https://codecov.io/gh/iMattPro/passwordstrength)
 [![Latest Stable Version](https://poser.pugx.org/vse/passwordstrength/v/stable)](https://www.phpbb.com/customise/db/extension/password_strength/)
 
 ## Demo
