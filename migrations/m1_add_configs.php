@@ -17,7 +17,7 @@ class m1_add_configs extends \phpbb\db\migration\migration
 		return $this->config->offsetExists('password_strength_type');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\phpbb\db\migration\data\v310\gold');
 	}
