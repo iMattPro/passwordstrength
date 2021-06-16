@@ -23,8 +23,8 @@ class listener_test extends \phpbb_test_case
 	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
-	/** @var \phpbb\user|\PHPUnit\Framework\MockObject\MockObject */
-	protected $user;
+	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
+	protected $language;
 
 	protected function setUp(): void
 	{
@@ -33,14 +33,14 @@ class listener_test extends \phpbb_test_case
 		$this->config = new \phpbb\config\config(array());
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
-		$this->user = $this->getMockBuilder('\phpbb\user')
+		$this->language = $this->getMockBuilder('\phpbb\language\language')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	protected function set_listener()
 	{
-		$this->listener = new \vse\passwordstrength\event\listener($this->config, $this->template, $this->user);
+		$this->listener = new \vse\passwordstrength\event\listener($this->config, $this->template, $this->language);
 	}
 
 	public function test_construct()

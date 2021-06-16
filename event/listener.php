@@ -23,21 +23,21 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
-	/** @var \phpbb\user */
-	protected $user;
+	/** @var \phpbb\language\language */
+	protected $language;
 
 	/**
 	 * Constructor
 	 *
 	 * @param \phpbb\config\config     $config   Config object
 	 * @param \phpbb\template\template $template Template object
-	 * @param \phpbb\user              $user     User object
+	 * @param \phpbb\language\language $language Language object
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\language\language $language)
 	{
 		$this->config = $config;
 		$this->template = $template;
-		$this->user = $user;
+		$this->language = $language;
 	}
 
 	/**
@@ -79,7 +79,7 @@ class listener implements EventSubscriberInterface
 	{
 		if ($event['mode'] === 'registration' && array_key_exists('pass_complex', $event['display_vars']['vars']))
 		{
-			$this->user->add_lang_ext('vse/passwordstrength', 'acp_passwordstrength');
+			$this->language->add_lang('acp_passwordstrength', 'vse/passwordstrength');
 
 			$display_vars = $event['display_vars'];
 
