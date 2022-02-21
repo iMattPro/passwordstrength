@@ -20,11 +20,11 @@ class listener_test extends \phpbb_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \phpbb\template\template|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
 	protected $template;
 
-	/** @var \phpbb\user|\PHPUnit_Framework_MockObject_MockObject */
-	protected $user;
+	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
+	protected $language;
 
 	protected function setUp(): void
 	{
@@ -33,14 +33,14 @@ class listener_test extends \phpbb_test_case
 		$this->config = new \phpbb\config\config(array());
 		$this->template = $this->getMockBuilder('\phpbb\template\template')
 			->getMock();
-		$this->user = $this->getMockBuilder('\phpbb\user')
+		$this->language = $this->getMockBuilder('\phpbb\language\language')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	protected function set_listener()
 	{
-		$this->listener = new \vse\passwordstrength\event\listener($this->config, $this->template, $this->user);
+		$this->listener = new \vse\passwordstrength\event\listener($this->config, $this->template, $this->language);
 	}
 
 	public function test_construct()
@@ -97,15 +97,12 @@ class listener_test extends \phpbb_test_case
 	{
 		$this->set_listener();
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.user_setup', array($this->listener, 'password_strength_setup'));
 
 		$event_data = array('lang_set_ext');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.user_setup', $event);
-
-		$lang_set_ext = $event->get_data_filtered($event_data);
-		$lang_set_ext = $lang_set_ext['lang_set_ext'];
+		$event_data_filtered = $dispatcher->trigger_event('core.user_setup', compact($event_data));
+		extract($event_data_filtered, EXTR_OVERWRITE);
 
 		foreach ($expected_contains as $expected)
 		{
@@ -146,19 +143,17 @@ class listener_test extends \phpbb_test_case
 	{
 		$this->set_listener();
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.acp_board_config_edit_add', array($this->listener, 'password_strength_acp_options'));
 
 		$event_data = array('display_vars', 'mode');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.acp_board_config_edit_add', $event);
+		$event_data_after = $dispatcher->trigger_event('core.acp_board_config_edit_add', compact($event_data));
 
-		$event_data_after = $event->get_data_filtered($event_data);
 		foreach ($event_data as $expected)
 		{
 			self::assertArrayHasKey($expected, $event_data_after);
 		}
-		extract($event_data_after);
+		extract($event_data_after, EXTR_OVERWRITE);
 
 		$keys = array_keys($display_vars['vars']);
 

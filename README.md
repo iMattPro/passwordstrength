@@ -22,10 +22,9 @@ Try it out yourself here: ([Online Demo](https://imattpro.github.io/passwordstre
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
 
 ## Minimum Requirements
-* phpBB 3.1.0
 * phpBB 3.2.0
 * phpBB 3.3.0
-* PHP 5.3.3
+* PHP 5.4
 
 ## Install
 1. [Download the latest validated release](https://www.phpbb.com/customise/db/extension/password_strength/).
