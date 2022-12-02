@@ -31,11 +31,8 @@ class listener_test extends \phpbb_test_case
 		parent::setUp();
 
 		$this->config = new \phpbb\config\config(array());
-		$this->template = $this->getMockBuilder('\phpbb\template\template')
-			->getMock();
-		$this->language = $this->getMockBuilder('\phpbb\language\language')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->template = $this->createMock('\phpbb\template\template');
+		$this->language = $this->createMock('\phpbb\language\language');
 	}
 
 	protected function set_listener()

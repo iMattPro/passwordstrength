@@ -39,7 +39,7 @@ Try it out yourself here: ([Online Demo](https://imattpro.github.io/passwordstre
 3. To permanently uninstall, click `Delete Data`, then delete the `passwordstrength` folder from `phpBB/ext/vse/`.
 
 ## Disclaimer
-Password Strength is intended to encourage your forum users to use strong passwords. It does not guarantee protection against password attacks, nor does it force your users to use strong passwords. The business of scoring password strength is a tricky and hotly debated subject and you are encouraged to decide which of the strength test models included in this extension will work best for your forum.
+Password Strength is intended to encourage your forum users to use strong passwords. It does not guarantee protection against password attacks, nor does it force your users to use strong passwords. The business of scoring password strength is a tricky and hotly debated subject, and you are encouraged to decide which of the strength test models included in this extension will work best for your forum.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
