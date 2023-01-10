@@ -16,7 +16,7 @@ Try it out yourself here: ([Online Demo](https://imattpro.github.io/passwordstre
 * Password Strength is scored using one of the available algorithms:
     1. __Complexity__ is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.
     2. __zxcvbn algorithm__ (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for user-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.
-* Multiple languages are supported. View the pre-installed [localizations](https://github.com/iMattPro/passwordstrength/tree/master/language).
+* Multiple languages are supported. View the pre-installed [localizations](https://github.com/iMattPro/passwordstrength/tree/master/language). The zxcvbn library included has advanced user feedback about the password with support for Brazilian, Dutch, English, Finnish, French, German, Indonesian, Italian, Japanese, Polish and Spanish. 
 
 ## Awards
 * Featured MOD of the Week in the phpBB Weekly Podcast, episode #166.
