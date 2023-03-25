@@ -47,10 +47,10 @@ class listener implements EventSubscriberInterface
 	 */
 	public static function getSubscribedEvents()
 	{
-		return array(
-			'core.user_setup' 					=> 'password_strength_setup',
+		return [
+			'core.user_setup' 				=> 'password_strength_setup',
 			'core.acp_board_config_edit_add'	=> 'password_strength_acp_options',
-		);
+		];
 	}
 
 	/**
@@ -61,10 +61,10 @@ class listener implements EventSubscriberInterface
 	public function password_strength_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
-		$lang_set_ext[] = array(
+		$lang_set_ext[] = [
 			'ext_name' => 'vse/passwordstrength',
 			'lang_set' => 'passwordstrength',
-		);
+		];
 		$event['lang_set_ext'] = $lang_set_ext;
 
 		$this->template->assign_var('S_USE_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
@@ -77,26 +77,24 @@ class listener implements EventSubscriberInterface
 	 */
 	public function password_strength_acp_options($event)
 	{
-		if ($event['mode'] === 'registration' && array_key_exists('pass_complex', $event['display_vars']['vars']))
+		if ($event['mode'] !== 'registration' || !array_key_exists('pass_complex', $event['display_vars']['vars']))
 		{
-			$this->language->add_lang('acp_passwordstrength', 'vse/passwordstrength');
-
-			$display_vars = $event['display_vars'];
-
-			$pws_config_vars = array(
-				'password_strength_type' => array(
-					'lang'		=> 'PASSWORD_STRENGTH_TYPE',
-					'validate'	=> 'int',
-					'type'		=> 'select',
-					'function'	=> 'build_select',
-					'params'	=> array(array(0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX', 1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'), '{CONFIG_VALUE}'),
-					'explain'	=> true,
-				),
-			);
-
-			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'pass_complex'));
-
-			$event['display_vars'] = $display_vars;
+			return;
 		}
+
+		$this->language->add_lang('acp_passwordstrength', 'vse/passwordstrength');
+
+		$pws_config_vars = [
+			'password_strength_type' => [
+				'lang'		=> 'PASSWORD_STRENGTH_TYPE',
+				'validate'	=> 'int',
+				'type'		=> 'select',
+				'function'	=> 'build_select',
+				'params'	=> [[0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX', 1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'], '{CONFIG_VALUE}'],
+				'explain'	=> true,
+			],
+		];
+
+		$event->update_subarray('display_vars', 'vars', phpbb_insert_config_array($event['display_vars']['vars'], $pws_config_vars, ['after' => 'pass_complex']));
 	}
 }
