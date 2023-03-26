@@ -14,22 +14,22 @@ class ext_test extends \phpbb_test_case
 {
 	public function test_ext()
 	{
-		/** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
+		/** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface $container */
 		$container = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
 			->disableOriginalConstructor()
 			->getMock();
 
-		/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\finder */
+		/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\finder $extension_finder */
 		$extension_finder = $this->getMockBuilder('\phpbb\finder')
 			->disableOriginalConstructor()
 			->getMock();
 
-		/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\db\migrator */
+		/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\db\migrator $migrator */
 		$migrator = $this->getMockBuilder('\phpbb\db\migrator')
 			->disableOriginalConstructor()
 			->getMock();
 
-		$ext = new \phpbb\ads\ext(
+		$ext = new \vse\passwordstrength\ext(
 			$container,
 			$extension_finder,
 			$migrator,

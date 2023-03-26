@@ -34,13 +34,13 @@ class visibility_test extends \phpbb_functional_test_case
 		$this->admin_login();
 
 		// Test ACP settings page
-		$crawler = self::request('GET', "adm/index.php?i=acp_board&mode=registration&sid={$this->sid}");
+		$crawler = self::request('GET', "adm/index.php?i=acp_board&mode=registration&sid=$this->sid");
 		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE', $crawler->filter('html')->text());
 		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_COMPLEX', $crawler->filter('html')->text());
 		$this->assertContainsLang('PASSWORD_STRENGTH_TYPE_ZXCVBN', $crawler->filter('html')->text());
 
 		// Test password strength on ACP Account settings page
-		$crawler = self::request('GET', "adm/index.php?i=acp_users&mode=overview&sid={$this->sid}");
+		$crawler = self::request('GET', "adm/index.php?i=acp_users&mode=overview&sid=$this->sid");
 		$this->assertNotContainsLang('PS_WEAK', $crawler->filter('html')->text());
 		$form = $crawler->selectButton($this->lang('SUBMIT'))->form();
 		$data = array('username' => 'admin');
