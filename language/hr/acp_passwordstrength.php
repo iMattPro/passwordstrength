@@ -36,7 +36,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PASSWORD_STRENGTH_TYPE'			=> 'Algoritam jačine zaporke',
-	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Ukoliko je izabrano “<strong>Složenost</strong>”, prilikom utvrđivanja <em>jačine zaporke</em>, bit će traženo miješanje znakova, brojeva, simbola i dužine zaporke uz poticanje na kompleksniju zaporku.<br/>Ukoliko je izabrano “<strong>zxcvbn algoritam</strong>” (DropBox), prilikom utvrđivanja <em>jačine zaporke</em>, bit će (iz)računa(va)no koliko bi lako zaporka mogla biti pogođena uz dozvoljavanje jače korisničko-prilagođene zaporke.',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Ukoliko je izabrano “<strong>Složenost</strong>”, prilikom utvrđivanja <em>jačine zaporke</em>, bit će traženo miješanje znakova, brojeva, simbola i dužine zaporke uz poticanje na kompleksniju zaporku.<br>Ukoliko je izabrano “<strong>zxcvbn algoritam</strong>” (DropBox), prilikom utvrđivanja <em>jačine zaporke</em>, bit će (iz)računa(va)no koliko bi lako zaporka mogla biti pogođena uz dozvoljavanje jače korisničko-prilagođene zaporke.',
 	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Složenost',
 	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algoritam',
 ));

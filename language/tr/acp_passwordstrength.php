@@ -35,7 +35,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PASSWORD_STRENGTH_TYPE'			=> 'Şifre zorluğu algoritması',
-	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Bir şifrenin zorluğunun belirlenmesi için bir algoritma seçin.<br/><strong>Karmaşık</strong> şifre içerisindeki karakterlerin, sayıların, sembollerin ve uzunluğun karışımına bakarak şifrenin karmaşık olmasını teşvik eder.<br/><strong>zxcvbn</strong> (DropBox aracılığıyla) bir şifrenin ne kadar kolay tahmin edilebileceğini hesaplar, güçlü kullanıcı dostu şifreler için olanak sağlar.',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Bir şifrenin zorluğunun belirlenmesi için bir algoritma seçin.<br><strong>Karmaşık</strong> şifre içerisindeki karakterlerin, sayıların, sembollerin ve uzunluğun karışımına bakarak şifrenin karmaşık olmasını teşvik eder.<br><strong>zxcvbn</strong> (DropBox aracılığıyla) bir şifrenin ne kadar kolay tahmin edilebileceğini hesaplar, güçlü kullanıcı dostu şifreler için olanak sağlar.',
 	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Karmaşık',
 	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'zxcvbn algoritması',
 ));

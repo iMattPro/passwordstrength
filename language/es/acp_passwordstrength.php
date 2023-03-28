@@ -35,7 +35,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PASSWORD_STRENGTH_TYPE'			=> 'Algoritmo de seguridad de la contraseña',
-	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Elija un algoritmo para determinar la fuerza de una contraseña.<br/><strong>Complejidad</strong> busca caracteres mixtos, números, símbolos y la longitud de una contraseña, contraseñas complejas.<br/><strong>zxcvbn</strong> (por DropBox) calcula la facilidad con que una contraseña se puede adivinar, lo que permite contraseñas fáciles de usar.',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Elija un algoritmo para determinar la fuerza de una contraseña.<br><strong>Complejidad</strong> busca caracteres mixtos, números, símbolos y la longitud de una contraseña, contraseñas complejas.<br><strong>zxcvbn</strong> (por DropBox) calcula la facilidad con que una contraseña se puede adivinar, lo que permite contraseñas fáciles de usar.',
 	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Complejidad',
 	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'Algoritmo zxcvbn',
 ));

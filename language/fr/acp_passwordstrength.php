@@ -40,7 +40,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PASSWORD_STRENGTH_TYPE'			=> 'Algorithme de robustesse du mot de passe',
-	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Permet de choisir un algorithme pour déterminer la force du mot de passe.<br/>La <strong>complexité</strong> du mot de passe dépend de la diversité des caractères, nombres, symboles utilisés ainsi que de sa longueur.<br/>L’algorithme <strong>zxcvbn</strong> (créé par DropBox) calcule comment un mot de passe peut être deviné facilement, permettant ainsi de créer des mots de passe pratiques et robustes.',
+	'PASSWORD_STRENGTH_TYPE_EXPLAIN'	=> 'Permet de choisir un algorithme pour déterminer la force du mot de passe.<br>La <strong>complexité</strong> du mot de passe dépend de la diversité des caractères, nombres, symboles utilisés ainsi que de sa longueur.<br>L’algorithme <strong>zxcvbn</strong> (créé par DropBox) calcule comment un mot de passe peut être deviné facilement, permettant ainsi de créer des mots de passe pratiques et robustes.',
 	'PASSWORD_STRENGTH_TYPE_COMPLEX'	=> 'Complexité',
 	'PASSWORD_STRENGTH_TYPE_ZXCVBN'		=> 'Algorithme zxcvbn',
 ));
