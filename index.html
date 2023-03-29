@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Password Strength by VSE</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
@@ -31,33 +31,32 @@
 <a id="-password-strength" class="anchor" href="#-password-strength" aria-hidden="true"><span class="octicon octicon-link"></span></a>
 <img src="https://imattpro.github.io/logo/showpass.png" alt="Password Strength" title="Password Strength"> Password Strength</h3>
 
-<p>An enhancement for phpBB3 that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.</p>
+<p>An extension for phpBB that will show users the strength of a password as they type it into the password field when creating or updating their account.</p>
 
 <h3>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demos</h3>
-<p>
-<details><summary>Test password strength using Complexity:<br/></summary>Complexity is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.<br/></details>
-<input type="text" id="complex_password" name="complex_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" />
-</p>
-
-<p><details><summary>Test password strength using the &quot;<a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>&quot; algorithm:<br/></summary>zxcvbn (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for user-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.<br/></details>
-<input type="text" id="zxcvbn_password" name="zxcvbn_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;" />
-</p>
+<p></p>
+<details><summary>Test password strength using Complexity:<br></summary>Complexity is an unintelligent test that checks for complexity in a password by looking for a mix of characters, case, symbols, numbers and length. This is useful for encouraging hard to remember complex passwords, but can score easily cracked passwords like `P@s$w0rd` as Strong.<br></details>
+<input type="text" id="complex_password" name="complex_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;">
+<p></p>
+<details><summary>Test password strength using the &quot;<a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>&quot; algorithm:<br></summary>zxcvbn (used by DropBox) is an intelligent algorithm that calculates the guess-ability of a password by comparing it to a large dictionary of common English words as well as looking for recognizable patterns like `P@s$w0rd`. This is a more robust strength checker that allows for user-friendly passwords that are easy to remember but still hard to guess. A Very Strong result represents a password that may take a computer years to centuries to guess.<br></details>
+<input type="text" id="zxcvbn_password" name="zxcvbn_password" size="30" placeholder="password" style="padding:3px;width:300px;border-radius:3px;border-style:solid;border-width:2px;border-color:#c3c3c3;margin-right:6px;">
+<p></p>
 
 <h3>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h3>
 
 <blockquote>
-<p>Current valid releases available from phpBB:<br />
-Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/">https://www.phpbb.com/customise/db/extension/password_strength/</a><br />
+<p>Current valid releases available from phpBB:<br>
+Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/">https://www.phpbb.com/customise/db/extension/password_strength/</a><br>
 MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/">https://www.phpbb.com/customise/db/mod/show_password_strength/</a></p>
 </blockquote>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Support for this project is available through phpBB's Customisation Database:<br />
-Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/support/">https://www.phpbb.com/customise/db/extension/password_strength/support/</a><br />
+<p>Support for this project is available through phpBB's Customisation Database:<br>
+Extension: <a href="https://www.phpbb.com/customise/db/extension/password_strength/support/">https://www.phpbb.com/customise/db/extension/password_strength/support/</a><br>
 MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/support/">https://www.phpbb.com/customise/db/mod/show_password_strength/support/</a></p>
       </section>
     </div>
@@ -67,57 +66,73 @@ MOD: <a href="https://www.phpbb.com/customise/db/mod/show_password_strength/supp
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@zxcvbn-ts/core@2.2.1/dist/zxcvbn-ts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@zxcvbn-ts/language-common@2.0.1/dist/zxcvbn-ts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@zxcvbn-ts/language-en@2.1.0/dist/zxcvbn-ts.js"></script>
 	<script>
-		(function($) {
+		(function() {
 			'use strict';
-			$.fn.passwordStrength = function(type) {
-				return this.each(function() {
-					var inputField = $(this),
-						displayMsg = $('<span/>'),
-						displayArr = [];
-					displayArr[0] = [inputField.css('background-color'), '']; // 0 defaults
-					displayArr[1] = ['#f5a9a9', 'Very Weak']; // 1 red, very weak
-					displayArr[2] = ['#f5d0a9', 'Weak']; // 2 orange, weak
-					displayArr[3] = ['#f3f781', 'Good']; // 3 yellow, good
-					displayArr[4] = ['#a9f5a9', 'Strong']; // 4 light green, strong
-					displayArr[5] = ['#00ff00', 'Very Strong']; // 5 green, very strong
-					function showStrength(field, score) {
-						field.css('background-color', displayArr[score][0]);
-						displayMsg.html(displayArr[score][1]);
-					}
-					function trigger() {
-						var input = inputField.val(), score = 0;
-						if (type === 'zxcvbn') {
-							score = zxcvbn(input).score + (input.length > 0);
-						} else {
-							score = Math.max(scoreComplexity(input), +(input.length > 0));
-						}
-						showStrength(inputField, score);
-					}
-					inputField.bind('keyup blur', trigger).after(displayMsg);
-				});
+
+			// Get DOM elements
+			const passField = document.querySelectorAll('input[name=complex_password], input[name=zxcvbn_password]');
+			const complexResult = document.createElement('div');
+			const zxcvbnResult = document.createElement('div');
+
+			// Define password strength values
+			const strengthValues = [
+				['#ffffff', ''],
+				['#f5a9a9', 'Very Weak 🙁'],
+				['#f5d0a9', 'Weak 🙁'],
+				['#f3f781', 'Good 😐'],
+				['#a9f5a9', 'Strong 🙂'],
+				['#00ff00', 'Very Strong 😀'],
+			];
+
+			// Define helper functions
+			const showStrength = (score, result, event) => {
+				const field = event.target;
+				const target = event.target.id === 'zxcvbn_password' ? zxcvbnResult : complexResult;
+				field.style.backgroundColor = strengthValues[score][0];
+				target.innerHTML = `${strengthValues[score][1]}${result.length ? ` - <em>${result}</em>` : ''}`;
+				field.parentNode.insertBefore(target, field.nextSibling);
 			};
-			function scoreComplexity(password) {
+
+			const trigger = (event) => {
+				const input = event.target.value;
+				if (event.target.id === 'zxcvbn_password') {
+					const result = zxcvbnts.core.zxcvbn(input);
+					showStrength(result.score + (input.length > 0), result.feedback.warning, event);
+				} else {
+					showStrength(Math.max(complexity(input), +(input.length > 0)), '', event);
+				}
+			};
+
+			// Set zxcvbn options
+			const options = {
+				translations: zxcvbnts['language-en'].translations,
+				graphs: zxcvbnts['language-common'].adjacencyGraphs,
+				dictionary: {
+					...zxcvbnts['language-common'].dictionary,
+					...zxcvbnts['language-en'].dictionary,
+				},
+			};
+			zxcvbnts.core.zxcvbnOptions.setOptions(options);
+
+			function complexity(input) {
 				return 0
-					+ (password.length > 5) // more than 5 chars
-					+ (password.length > 12) // more than 12 chars
-					+ (/[a-z]/.test(password) && /[A-Z]/.test(password)) // mixed case chars
-					+ (/\d/.test(password) && /\D/.test(password)) // at least 1 number and 1 other char
-					+ (/[!@#$%^&*?_~\-(),]/.test(password) && /\w/.test(password)); // letters and special chars
+					+ (input.length > 5) // more than 5 chars
+					+ (input.length > 12) // more than 12 chars
+					+ (/[a-z]/.test(input) && /[A-Z]/.test(input)) // mixed case chars
+					+ (/\d/.test(input) && /\D/.test(input)) // at least 1 number and 1 other char
+					+ (/[!@#$%^&*?_~\-(),]/.test(input) && /\w/.test(input)); // letters and special chars
 			}
-			$(function() {
-				$.ajax({
-					url: './zxcvbn/zxcvbn.js',
-					dataType: 'script',
-					cache: true,
-					success: function() {
-						$('input[name=zxcvbn_password]').passwordStrength('zxcvbn');
-					}
-				});
-				$('input[name=complex_password]').passwordStrength('complex');
+
+			// Attach event listeners and insert resultMsg into DOM
+			passField.forEach(field => {
+				field.addEventListener('keyup', trigger);
+				field.addEventListener('blur', trigger);
 			});
-		})(jQuery);
+		})();
 	</script>
 
   </body>
