@@ -39,9 +39,9 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'Trop simple',
-	'PS_WEAK'			=> 'Faible',
-	'PS_GOOD'			=> 'Bon',
-	'PS_STRONG'			=> 'Complexe',
-	'PS_VERY_STRONG'	=> 'Très complexe',
+	'PS_VERY_WEAK'		=> 'Trop simple 🙁',
+	'PS_WEAK'			=> 'Faible 🙁',
+	'PS_GOOD'			=> 'Bon 😐',
+	'PS_STRONG'			=> 'Complexe 🙂',
+	'PS_VERY_STRONG'	=> 'Très complexe 😀',
 ));

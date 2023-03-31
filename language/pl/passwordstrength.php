@@ -35,9 +35,9 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PS_VERY_WEAK'		=> 'Bardzo słabe',
-	'PS_WEAK'			=> 'Słabe',
-	'PS_GOOD'			=> 'Dobre',
-	'PS_STRONG'			=> 'Silne',
-	'PS_VERY_STRONG'	=> 'Bardzo silne',
+	'PS_VERY_WEAK'		=> 'Bardzo słabe 🙁',
+	'PS_WEAK'			=> 'Słabe 🙁',
+	'PS_GOOD'			=> 'Dobre 😐',
+	'PS_STRONG'			=> 'Silne 🙂',
+	'PS_VERY_STRONG'	=> 'Bardzo silne 😀',
 ));
