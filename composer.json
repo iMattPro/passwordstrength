@@ -1,7 +1,7 @@
 {
 	"name": "vse/passwordstrength",
 	"type": "phpbb-extension",
-	"description": "An extension for phpBB that will show users how strong (or weak) their password is as they type it into the password field when creating or updating their account.",
+	"description": "An extension for phpBB that will show users the strength of a password as they type it into the password field when creating or updating their account.",
 	"homepage": "https://github.com/iMattPro/passwordstrength",
 	"version": "1.3.0-dev",
 	"keywords": ["phpbb", "extension", "password", "strength", "zxcvbn"],
