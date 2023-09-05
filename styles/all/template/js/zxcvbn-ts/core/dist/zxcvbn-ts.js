@@ -2,14 +2,9 @@ this.zxcvbnts = this.zxcvbnts || {};
 this.zxcvbnts.core = (function (exports) {
     'use strict';
 
-    const empty = obj => Object.keys(obj).length === 0;
     const extend = (listToExtend, list) =>
     // eslint-disable-next-line prefer-spread
     listToExtend.push.apply(listToExtend, list);
-    const translate = (string, chrMap) => {
-      const tempArray = string.split('');
-      return tempArray.map(char => chrMap[char] || char).join('');
-    };
     // sort on i primary, j secondary
     const sorted = matches => matches.sort((m1, m2) => m1.i - m2.i || m1.j - m2.j);
     const buildRankedDictionary = orderedList => {
@@ -68,6 +63,8 @@ this.zxcvbnts.core = (function (exports) {
     const REGEXEN = {
       recentYear: /19\d\d|200\d|201\d|202\d/g
     };
+    /* Separators */
+    const SEPERATOR_CHARS = [' ', ',', ';', ':', '|', '/', '\\', '_', '.', '-'];
 
     /*
      * -------------------------------------------------------------------------------
@@ -458,6 +455,9 @@ this.zxcvbnts.core = (function (exports) {
       let foundDistance = 0;
       const found = Object.keys(rankedDictionary).find(entry => {
         const usedThreshold = getUsedThreshold(password, entry, threshold);
+        if (Math.abs(password.length - entry.length) > usedThreshold) {
+          return false;
+        }
         const foundEntryDistance = distance(password, entry);
         const isInThreshold = foundEntryDistance <= usedThreshold;
         if (isInThreshold) {
@@ -478,14 +478,24 @@ this.zxcvbnts.core = (function (exports) {
       a: ['4', '@'],
       b: ['8'],
       c: ['(', '{', '[', '<'],
+      d: ['6', '|)'],
       e: ['3'],
-      g: ['6', '9'],
+      f: ['#'],
+      g: ['6', '9', '&'],
+      h: ['#', '|-|'],
       i: ['1', '!', '|'],
-      l: ['1', '|', '7'],
-      o: ['0'],
+      k: ['<', '|<'],
+      l: ['!', '1', '|', '7'],
+      m: ['^^', 'nn', '2n', '/\\\\/\\\\'],
+      n: ['//'],
+      o: ['0', '()'],
+      q: ['9'],
+      u: ['|_|'],
       s: ['$', '5'],
       t: ['+', '7'],
-      x: ['%'],
+      v: ['<', '>', '/'],
+      w: ['^/', 'uu', 'vv', '2u', '2v', '\\\\/\\\\/'],
+      x: ['%', '><'],
       z: ['2']
     };
 
@@ -542,10 +552,58 @@ this.zxcvbnts.core = (function (exports) {
       }
     };
 
+    class TrieNode {
+      constructor(parents = []) {
+        this.parents = parents;
+        // eslint-disable-next-line no-use-before-define
+        this.children = new Map();
+      }
+      addSub(key, ...subs) {
+        const firstChar = key.charAt(0);
+        if (!this.children.has(firstChar)) {
+          this.children.set(firstChar, new TrieNode([...this.parents, firstChar]));
+        }
+        let cur = this.children.get(firstChar);
+        for (let i = 1; i < key.length; i += 1) {
+          const c = key.charAt(i);
+          if (!cur.hasChild(c)) {
+            cur.addChild(c);
+          }
+          cur = cur.getChild(c);
+        }
+        cur.subs = (cur.subs || []).concat(subs);
+        return this;
+      }
+      getChild(child) {
+        return this.children.get(child);
+      }
+      isTerminal() {
+        return !!this.subs;
+      }
+      addChild(child) {
+        if (!this.hasChild(child)) {
+          this.children.set(child, new TrieNode([...this.parents, child]));
+        }
+      }
+      hasChild(child) {
+        return this.children.has(child);
+      }
+    }
+
+    var l33tTableToTrieNode = ((l33tTable, triNode) => {
+      Object.entries(l33tTable).forEach(([letter, substitutions]) => {
+        substitutions.forEach(substitution => {
+          triNode.addSub(substitution, letter);
+        });
+      });
+      return triNode;
+    });
+
     class Options {
       constructor() {
         this.matchers = {};
         this.l33tTable = l33tTable;
+        this.trieNodeRoot = l33tTableToTrieNode(l33tTable, new TrieNode());
         this.dictionary = {
           userInputs: []
         };
@@ -555,7 +613,7 @@ this.zxcvbnts.core = (function (exports) {
         this.graphs = {};
         this.useLevenshteinDistance = false;
         this.levenshteinThreshold = 2;
-        this.l33tMaxSubstitutions = 100;
+        this.l33tMaxSubstitutions = 512;
         this.maxLength = 256;
         this.setRankedDictionaries();
       }
@@ -563,6 +621,7 @@ this.zxcvbnts.core = (function (exports) {
       setOptions(options = {}) {
         if (options.l33tTable) {
           this.l33tTable = options.l33tTable;
+          this.trieNodeRoot = l33tTableToTrieNode(options.l33tTable, new TrieNode());
         }
         if (options.dictionary) {
           this.dictionary = options.dictionary;
@@ -614,14 +673,14 @@ this.zxcvbnts.core = (function (exports) {
         const rankedDictionaries = {};
         const rankedDictionariesMaxWorkSize = {};
         Object.keys(this.dictionary).forEach(name => {
-          rankedDictionaries[name] = this.getRankedDictionary(name);
-          rankedDictionariesMaxWorkSize[name] = this.getRankedDictionariesMaxWordSize(name);
+          rankedDictionaries[name] = buildRankedDictionary(this.dictionary[name]);
+          rankedDictionariesMaxWorkSize[name] = this.getRankedDictionariesMaxWordSize(this.dictionary[name]);
         });
         this.rankedDictionaries = rankedDictionaries;
         this.rankedDictionariesMaxWordSize = rankedDictionariesMaxWorkSize;
       }
-      getRankedDictionariesMaxWordSize(name) {
-        const data = this.dictionary[name].map(el => {
+      getRankedDictionariesMaxWordSize(list) {
+        const data = list.map(el => {
           if (typeof el !== 'string') {
             return el.toString().length;
           }
@@ -633,28 +692,23 @@ this.zxcvbnts.core = (function (exports) {
         }
         return data.reduce((a, b) => Math.max(a, b), -Infinity);
       }
-      getRankedDictionary(name) {
-        const list = this.dictionary[name];
-        if (name === 'userInputs') {
-          const sanitizedInputs = [];
-          list.forEach(input => {
-            const inputType = typeof input;
-            if (inputType === 'string' || inputType === 'number' || inputType === 'boolean') {
-              sanitizedInputs.push(input.toString().toLowerCase());
-            }
-          });
-          return buildRankedDictionary(sanitizedInputs);
-        }
-        return buildRankedDictionary(list);
+      buildSanitizedRankedDictionary(list) {
+        const sanitizedInputs = [];
+        list.forEach(input => {
+          const inputType = typeof input;
+          if (inputType === 'string' || inputType === 'number' || inputType === 'boolean') {
+            sanitizedInputs.push(input.toString().toLowerCase());
+          }
+        });
+        return buildRankedDictionary(sanitizedInputs);
       }
       extendUserInputsDictionary(dictionary) {
-        if (this.dictionary.userInputs) {
-          this.dictionary.userInputs = [...this.dictionary.userInputs, ...dictionary];
-        } else {
-          this.dictionary.userInputs = dictionary;
+        if (!this.dictionary.userInputs) {
+          this.dictionary.userInputs = [];
         }
-        this.rankedDictionaries.userInputs = this.getRankedDictionary('userInputs');
-        this.rankedDictionariesMaxWordSize.userInputs = this.getRankedDictionariesMaxWordSize('userInputs');
+        const newList = [...this.dictionary.userInputs, ...dictionary];
+        this.rankedDictionaries.userInputs = this.buildSanitizedRankedDictionary(newList);
+        this.rankedDictionariesMaxWordSize.userInputs = this.getRankedDictionariesMaxWordSize(newList);
       }
       addMatcher(name, matcher) {
         if (this.matchers[name]) {
@@ -692,6 +746,114 @@ this.zxcvbnts.core = (function (exports) {
       }
     }
 
+    const getAllSubCombosHelper = ({
+      substr,
+      buffer,
+      limit,
+      trieRoot
+    }) => {
+      const finalPasswords = [];
+      // eslint-disable-next-line max-statements
+      const helper = (onlyFullSub, isFullSub, index, subIndex, changes) => {
+        if (finalPasswords.length >= limit) {
+          return;
+        }
+        if (index === substr.length) {
+          if (onlyFullSub === isFullSub) {
+            finalPasswords.push({
+              password: buffer.join(''),
+              changes
+            });
+          }
+          return;
+        }
+        // first, exhaust all possible substitutions at this index
+        const nodes = [];
+        let cur = trieRoot;
+        for (let i = index; i < substr.length; i += 1) {
+          const character = substr.charAt(i);
+          cur = cur.getChild(character);
+          if (!cur) {
+            break;
+          }
+          nodes.push(cur);
+        }
+        let hasSubs = false;
+        // iterate backward to get wider substitutions first
+        for (let i = index + nodes.length - 1; i >= index; i -= 1) {
+          cur = nodes[i - index];
+          if (cur.isTerminal()) {
+            hasSubs = true;
+            const subs = cur.subs;
+            // eslint-disable-next-line no-restricted-syntax
+            for (const sub of subs) {
+              buffer.push(sub);
+              const newSubs = changes.concat({
+                i: subIndex,
+                letter: sub,
+                substitution: cur.parents.join('')
+              });
+              // recursively build the rest of the string
+              helper(onlyFullSub, isFullSub, i + 1, subIndex + sub.length, newSubs);
+              // backtrack by ignoring the added postfix
+              buffer.pop();
+              if (finalPasswords.length >= limit) {
+                return;
+              }
+            }
+          }
+        }
+        // next, generate all combos without doing a substitution at this index
+        // if a partial substitution is requested or there are no substitutions at this index
+        if (!onlyFullSub || !hasSubs) {
+          const firstChar = substr.charAt(index);
+          buffer.push(firstChar);
+          helper(onlyFullSub, isFullSub && !hasSubs, index + 1, subIndex + 1, changes);
+          buffer.pop();
+        }
+      };
+      // only full substitution
+      helper(true, true, 0, 0, []);
+      // only partial substitution
+      helper(false, true, 0, 0, []);
+      return finalPasswords;
+    };
+    const getCleanPasswords = (string, limit, trieRoot) => {
+      return getAllSubCombosHelper({
+        substr: string,
+        buffer: [],
+        limit,
+        trieRoot
+      });
+    };
+
+    const getExtras = (passwordWithSubs, i, j) => {
+      const usedChanges = passwordWithSubs.changes.filter(changes => {
+        return changes.i >= i && changes.i <= j;
+      });
+      const jUnsubbed = usedChanges.reduce((value, change) => {
+        return value - change.letter.length + change.substitution.length;
+      }, j);
+      const filtered = [];
+      const subDisplay = [];
+      usedChanges.forEach(value => {
+        const existingIndex = filtered.findIndex(t => {
+          return t.letter === value.letter && t.substitution === value.substitution;
+        });
+        if (existingIndex < 0) {
+          filtered.push({
+            letter: value.letter,
+            substitution: value.substitution
+          });
+          subDisplay.push(`${value.substitution} -> ${value.letter}`);
+        }
+      });
+      return {
+        j: jUnsubbed,
+        subs: filtered,
+        subDisplay: subDisplay.join(', ')
+      };
+    };
     /*
      * -------------------------------------------------------------------------------
      *  Dictionary l33t matching -----------------------------------------------------
@@ -701,126 +863,53 @@ this.zxcvbnts.core = (function (exports) {
       constructor(defaultMatch) {
         this.defaultMatch = defaultMatch;
       }
+      isAlreadyIncluded(matches, newMatch) {
+        return matches.some(l33tMatch => {
+          return Object.entries(l33tMatch).every(([key, value]) => {
+            return key === 'subs' || value === newMatch[key];
+          });
+        });
+      }
       match({
         password
       }) {
         const matches = [];
-        const enumeratedSubs = this.enumerateL33tSubs(this.relevantL33tSubtable(password, zxcvbnOptions.l33tTable));
-        const length = Math.min(enumeratedSubs.length, zxcvbnOptions.l33tMaxSubstitutions);
-        for (let i = 0; i < length; i += 1) {
-          const sub = enumeratedSubs[i];
-          // corner case: password has no relevant subs.
-          if (empty(sub)) {
-            break;
+        const subbedPasswords = getCleanPasswords(password, zxcvbnOptions.l33tMaxSubstitutions, zxcvbnOptions.trieNodeRoot);
+        let hasFullMatch = false;
+        let isFullSubstitution = true;
+        subbedPasswords.forEach(subbedPassword => {
+          if (hasFullMatch) {
+            return;
           }
-          const subbedPassword = translate(password, sub);
           const matchedDictionary = this.defaultMatch({
-            password: subbedPassword
+            password: subbedPassword.password,
+            useLevenshtein: isFullSubstitution
           });
+          // only the first entry has a full substitution
+          isFullSubstitution = false;
           matchedDictionary.forEach(match => {
-            const token = password.slice(match.i, +match.j + 1 || 9e9);
+            if (!hasFullMatch) {
+              hasFullMatch = match.i === 0 && match.j === password.length - 1;
+            }
+            const extras = getExtras(subbedPassword, match.i, match.j);
+            const token = password.slice(match.i, +extras.j + 1 || 9e9);
+            const newMatch = {
+              ...match,
+              l33t: true,
+              token,
+              ...extras
+            };
+            const alreadyIncluded = this.isAlreadyIncluded(matches, newMatch);
             // only return the matches that contain an actual substitution
-            if (token.toLowerCase() !== match.matchedWord) {
-              // subset of mappings in sub that are in use for this match
-              const matchSub = {};
-              Object.keys(sub).forEach(subbedChr => {
-                const chr = sub[subbedChr];
-                if (token.indexOf(subbedChr) !== -1) {
-                  matchSub[subbedChr] = chr;
-                }
-              });
-              const subDisplay = Object.keys(matchSub).map(k => `${k} -> ${matchSub[k]}`).join(', ');
-              matches.push({
-                ...match,
-                l33t: true,
-                token,
-                sub: matchSub,
-                subDisplay
-              });
+            if (token.toLowerCase() !== match.matchedWord && !alreadyIncluded) {
+              matches.push(newMatch);
             }
           });
-        }
+        });
         // filter single-character l33t matches to reduce noise.
         // otherwise '1' matches 'i', '4' matches 'a', both very common English words
         // with low dictionary rank.
         return matches.filter(match => match.token.length > 1);
-      }
-      // makes a pruned copy of l33t_table that only includes password's possible substitutions
-      relevantL33tSubtable(password, table) {
-        const passwordChars = {};
-        const subTable = {};
-        password.split('').forEach(char => {
-          passwordChars[char] = true;
-        });
-        Object.keys(table).forEach(letter => {
-          const subs = table[letter];
-          const relevantSubs = subs.filter(sub => sub in passwordChars);
-          if (relevantSubs.length > 0) {
-            subTable[letter] = relevantSubs;
-          }
-        });
-        return subTable;
-      }
-      // returns the list of possible 1337 replacement dictionaries for a given password
-      enumerateL33tSubs(table) {
-        const tableKeys = Object.keys(table);
-        const subs = this.getSubs(tableKeys, [[]], table);
-        // convert from assoc lists to dicts
-        return subs.map(sub => {
-          const subDict = {};
-          sub.forEach(([l33tChr, chr]) => {
-            subDict[l33tChr] = chr;
-          });
-          return subDict;
-        });
-      }
-      getSubs(keys, subs, table) {
-        if (!keys.length) {
-          return subs;
-        }
-        const firstKey = keys[0];
-        const restKeys = keys.slice(1);
-        const nextSubs = [];
-        table[firstKey].forEach(l33tChr => {
-          subs.forEach(sub => {
-            let dupL33tIndex = -1;
-            for (let i = 0; i < sub.length; i += 1) {
-              if (sub[i][0] === l33tChr) {
-                dupL33tIndex = i;
-                break;
-              }
-            }
-            if (dupL33tIndex === -1) {
-              const subExtension = sub.concat([[l33tChr, firstKey]]);
-              nextSubs.push(subExtension);
-            } else {
-              const subAlternative = sub.slice(0);
-              subAlternative.splice(dupL33tIndex, 1);
-              subAlternative.push([l33tChr, firstKey]);
-              nextSubs.push(sub);
-              nextSubs.push(subAlternative);
-            }
-          });
-        });
-        const newSubs = this.dedup(nextSubs);
-        if (restKeys.length) {
-          return this.getSubs(restKeys, newSubs, table);
-        }
-        return newSubs;
-      }
-      dedup(subs) {
-        const deduped = [];
-        const members = {};
-        subs.forEach(sub => {
-          const assoc = sub.map((k, index) => [k, index]);
-          assoc.sort();
-          const label = assoc.map(([k, v]) => `${k},${v}`).join('-');
-          if (!(label in members)) {
-            members[label] = true;
-            deduped.push(sub);
-          }
-        });
-        return deduped;
       }
     }
 
@@ -842,7 +931,8 @@ this.zxcvbnts.core = (function (exports) {
         return sorted(matches);
       }
       defaultMatch({
-        password
+        password,
+        useLevenshtein = true
       }) {
         const matches = [];
         const passwordLength = password.length;
@@ -861,7 +951,7 @@ this.zxcvbnts.core = (function (exports) {
               // only use levenshtein distance on full password to minimize the performance drop
               // and because otherwise there would be to many false positives
               const isFullPassword = i === 0 && j === passwordLength - 1;
-              if (zxcvbnOptions.useLevenshteinDistance && isFullPassword && !isInDictionary) {
+              if (zxcvbnOptions.useLevenshteinDistance && isFullPassword && !isInDictionary && useLevenshtein) {
                 foundLevenshteinDistance = findLevenshteinDistance(usedPassword, rankedDict, zxcvbnOptions.levenshteinThreshold);
               }
               const isLevenshteinMatch = Object.keys(foundLevenshteinDistance).length !== 0;
@@ -939,6 +1029,7 @@ this.zxcvbnts.core = (function (exports) {
         return coEff;
       },
       log10(n) {
+        if (n === 0) return 0;
         return Math.log(n) / Math.log(10); // IE doesn't support Math.log10 :(
       },
 
@@ -1019,17 +1110,15 @@ this.zxcvbnts.core = (function (exports) {
     });
 
     const getCounts = ({
-      subs,
-      subbed,
+      sub,
       token
     }) => {
-      const unsubbed = subs[subbed];
       // lower-case match.token before calculating: capitalization shouldn't affect l33t calc.
       const chrs = token.toLowerCase().split('');
       // num of subbed chars
-      const subbedCount = chrs.filter(char => char === subbed).length;
+      const subbedCount = chrs.filter(char => char === sub.substitution).length;
       // num of unsubbed chars
-      const unsubbedCount = chrs.filter(char => char === unsubbed).length;
+      const unsubbedCount = chrs.filter(char => char === sub.letter).length;
       return {
         subbedCount,
         unsubbedCount
@@ -1037,21 +1126,19 @@ this.zxcvbnts.core = (function (exports) {
     };
     var l33tVariant = (({
       l33t,
-      sub,
+      subs,
       token
     }) => {
       if (!l33t) {
         return 1;
       }
       let variations = 1;
-      const subs = sub;
-      Object.keys(subs).forEach(subbed => {
+      subs.forEach(sub => {
         const {
           subbedCount,
           unsubbedCount
         } = getCounts({
-          subs,
-          subbed,
+          sub,
           token
         });
         if (subbedCount === 0 || unsubbedCount === 0) {
@@ -1077,18 +1164,26 @@ this.zxcvbnts.core = (function (exports) {
       rank,
       reversed,
       l33t,
-      sub,
-      token
+      subs,
+      token,
+      dictionaryName
     }) => {
       const baseGuesses = rank; // keep these as properties for display purposes
       const uppercaseVariations = uppercaseVariant(token);
       const l33tVariations = l33tVariant({
         l33t,
-        sub,
+        subs,
         token
       });
       const reversedVariations = reversed && 2 || 1;
-      const calculation = baseGuesses * uppercaseVariations * l33tVariations * reversedVariations;
+      let calculation;
+      if (dictionaryName === 'diceware') {
+        // diceware dictionaries are special, so we get a simple scoring of 1/2 of 6^5 (6 digits on 5 dice)
+        // to get fix entropy of ~12.9 bits for every entry https://en.wikipedia.org/wiki/Diceware#:~:text=The%20level%20of,bits
+        calculation = 6 ** 5 / 2;
+      } else {
+        calculation = baseGuesses * uppercaseVariations * l33tVariations * reversedVariations;
+      }
       return {
         baseGuesses,
         uppercaseVariations,
@@ -1241,6 +1336,7 @@ this.zxcvbnts.core = (function (exports) {
     // ------------------------------------------------------------------------------
     // guess estimation -- one function per match pattern ---------------------------
     // ------------------------------------------------------------------------------
+    // eslint-disable-next-line complexity, max-statements
     var estimateGuesses = ((match, password) => {
       const extraData = {};
       // a match's guess estimate doesn't change. cache it.
@@ -1271,6 +1367,7 @@ this.zxcvbnts.core = (function (exports) {
       password: '',
       optimal: {},
       excludeAdditive: false,
+      separatorRegex: undefined,
       fillArray(size, valueType) {
         const result = [];
         for (let i = 0; i < size; i += 1) {
@@ -1476,6 +1573,13 @@ this.zxcvbnts.core = (function (exports) {
       }
     };
 
+    function createRegex({
+      isLazy = false,
+      isAnchored = false,
+      flags = ''
+    }) {
+      return new RegExp(`${isAnchored ? '^' : ''}(.+${isLazy ? '?' : ''})\\1+${isAnchored ? '$' : ''}`, flags);
+    }
     /*
      *-------------------------------------------------------------------------------
      * repeats (aaa, abcabcabc) ------------------------------
@@ -1539,17 +1643,26 @@ this.zxcvbnts.core = (function (exports) {
         };
       }
       getGreedyMatch(password, lastIndex) {
-        const greedy = /(.+)\1+/g;
+        const greedy = createRegex({
+          isLazy: false,
+          flags: 'g'
+        });
         greedy.lastIndex = lastIndex;
         return greedy.exec(password);
       }
       getLazyMatch(password, lastIndex) {
-        const lazy = /(.+?)\1+/g;
+        const lazy = createRegex({
+          isLazy: true,
+          flags: 'g'
+        });
         lazy.lastIndex = lastIndex;
         return lazy.exec(password);
       }
       setMatchToken(greedyMatch, lazyMatch) {
-        const lazyAnchored = /^(.+?)\1+$/;
+        const lazyAnchored = createRegex({
+          isLazy: true,
+          isAnchored: true
+        });
         let match;
         let baseToken = '';
         if (lazyMatch && greedyMatch[0].length > lazyMatch[0].length) {
@@ -1810,6 +1923,63 @@ this.zxcvbnts.core = (function (exports) {
       }
     }
 
+    const separatorRegex = new RegExp(`[${SEPERATOR_CHARS.join('')}]`);
+    /*
+     *-------------------------------------------------------------------------------
+     * separators (any semi-repeated special character) -----------------------------
+     *-------------------------------------------------------------------------------
+     */
+    class MatchSeparator {
+      static getMostUsedSeparatorChar(password) {
+        const mostUsedSeperators = [...password.split('').filter(c => separatorRegex.test(c)).reduce((memo, c) => {
+          const m = memo.get(c);
+          if (m) {
+            memo.set(c, m + 1);
+          } else {
+            memo.set(c, 1);
+          }
+          return memo;
+        }, new Map()).entries()].sort(([_a, a], [_b, b]) => b - a);
+        if (!mostUsedSeperators.length) return undefined;
+        const match = mostUsedSeperators[0];
+        // If the special character is only used once, don't treat it like a separator
+        if (match[1] < 2) return undefined;
+        return match[0];
+      }
+      static getSeparatorRegex(separator) {
+        return new RegExp(`([^${separator}\n])(${separator})(?!${separator})`, 'g');
+        // negative lookbehind can be added again in a few years when it is more supported by the browsers (currently 2023)
+        // https://github.com/zxcvbn-ts/zxcvbn/issues/202
+        // return new RegExp(`(?<!${separator})(${separator})(?!${separator})`, 'g')
+      }
+      // eslint-disable-next-line max-statements
+      match({
+        password
+      }) {
+        const result = [];
+        if (password.length === 0) return result;
+        const mostUsedSpecial = MatchSeparator.getMostUsedSeparatorChar(password);
+        if (mostUsedSpecial === undefined) return result;
+        const isSeparator = MatchSeparator.getSeparatorRegex(mostUsedSpecial);
+        // eslint-disable-next-line no-restricted-syntax
+        for (const match of password.matchAll(isSeparator)) {
+          // eslint-disable-next-line no-continue
+          if (match.index === undefined) continue;
+          // add one to the index because we changed the regex from negative lookbehind to something simple.
+          // this simple approach uses the first character before the separater too but we only need the index of the separater
+          // https://github.com/zxcvbn-ts/zxcvbn/issues/202
+          const i = match.index + 1;
+          result.push({
+            pattern: 'separator',
+            token: mostUsedSpecial,
+            i,
+            j: i
+          });
+        }
+        return result;
+      }
+    }
+
     class Matching {
       constructor() {
         this.matchers = {
@@ -1819,7 +1989,8 @@ this.zxcvbnts.core = (function (exports) {
           // @ts-ignore => TODO resolve this type issue. This is because it is possible to be async
           repeat: MatchRepeat,
           sequence: MatchSequence,
-          spatial: MatchSpatial
+          spatial: MatchSpatial,
+          separator: MatchSeparator
         };
       }
       match(password) {
@@ -1846,9 +2017,11 @@ this.zxcvbnts.core = (function (exports) {
           }
         });
         if (promises.length > 0) {
-          return new Promise(resolve => {
+          return new Promise((resolve, reject) => {
             Promise.all(promises).then(() => {
               resolve(sorted(matches));
+            }).catch(error => {
+              reject(error);
             });
           });
         }
@@ -1962,7 +2135,7 @@ this.zxcvbnts.core = (function (exports) {
     });
 
     const getDictionaryWarningPassword = (match, isSoleMatch) => {
-      let warning = '';
+      let warning = null;
       if (isSoleMatch && !match.l33t && !match.reversed) {
         if (match.rank <= 10) {
           warning = zxcvbnOptions.translations.warnings.topTen;
@@ -1977,7 +2150,7 @@ this.zxcvbnts.core = (function (exports) {
       return warning;
     };
     const getDictionaryWarningWikipedia = (match, isSoleMatch) => {
-      let warning = '';
+      let warning = null;
       if (isSoleMatch) {
         warning = zxcvbnOptions.translations.warnings.wordByItself;
       }
@@ -1990,7 +2163,7 @@ this.zxcvbnts.core = (function (exports) {
       return zxcvbnOptions.translations.warnings.commonNames;
     };
     const getDictionaryWarning = (match, isSoleMatch) => {
-      let warning = '';
+      let warning = null;
       const dictName = match.dictionaryName;
       const isAName = dictName === 'lastnames' || dictName.toLowerCase().includes('firstnames');
       if (dictName === 'passwords') {
@@ -2033,7 +2206,7 @@ this.zxcvbnts.core = (function (exports) {
         };
       }
       return {
-        warning: '',
+        warning: null,
         suggestions: []
       };
     });
@@ -2067,8 +2240,13 @@ this.zxcvbnts.core = (function (exports) {
       };
     });
 
+    var separatorMatcher = (() => {
+      // no suggestions
+      return null;
+    });
+
     const defaultFeedback = {
-      warning: '',
+      warning: null,
       suggestions: []
     };
     /*
@@ -2085,10 +2263,11 @@ this.zxcvbnts.core = (function (exports) {
           regex: regexMatcher,
           repeat: repeatMatcher,
           sequence: sequenceMatcher,
-          spatial: spatialMatcher
+          spatial: spatialMatcher,
+          separator: separatorMatcher
         };
         this.defaultFeedback = {
-          warning: '',
+          warning: null,
           suggestions: []
         };
         this.setDefaultSuggestions();
@@ -2108,12 +2287,9 @@ this.zxcvbnts.core = (function (exports) {
         let feedback = this.getMatchFeedback(longestMatch, sequence.length === 1);
         if (feedback !== null && feedback !== undefined) {
           feedback.suggestions.unshift(extraFeedback);
-          if (feedback.warning == null) {
-            feedback.warning = '';
-          }
         } else {
           feedback = {
-            warning: '',
+            warning: null,
             suggestions: [extraFeedback]
           };
         }
