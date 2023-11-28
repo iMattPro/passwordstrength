@@ -65,6 +65,7 @@ this.zxcvbnts.core = (function (exports) {
     };
     /* Separators */
     const SEPERATOR_CHARS = [' ', ',', ';', ':', '|', '/', '\\', '_', '.', '-'];
+    const SEPERATOR_CHAR_COUNT = SEPERATOR_CHARS.length;
 
     /*
      * -------------------------------------------------------------------------------
@@ -613,7 +614,7 @@ this.zxcvbnts.core = (function (exports) {
         this.graphs = {};
         this.useLevenshteinDistance = false;
         this.levenshteinThreshold = 2;
-        this.l33tMaxSubstitutions = 512;
+        this.l33tMaxSubstitutions = 100;
         this.maxLength = 256;
         this.setRankedDictionaries();
       }
@@ -746,58 +747,90 @@ this.zxcvbnts.core = (function (exports) {
       }
     }
 
-    const getAllSubCombosHelper = ({
-      substr,
-      buffer,
-      limit,
-      trieRoot
-    }) => {
-      const finalPasswords = [];
-      // eslint-disable-next-line max-statements
-      const helper = (onlyFullSub, isFullSub, index, subIndex, changes) => {
-        if (finalPasswords.length >= limit) {
-          return;
-        }
-        if (index === substr.length) {
-          if (onlyFullSub === isFullSub) {
-            finalPasswords.push({
-              password: buffer.join(''),
-              changes
-            });
-          }
-          return;
-        }
-        // first, exhaust all possible substitutions at this index
+    class CleanPasswords {
+      constructor({
+        substr,
+        limit,
+        trieRoot
+      }) {
+        this.buffer = [];
+        this.finalPasswords = [];
+        this.substr = substr;
+        this.limit = limit;
+        this.trieRoot = trieRoot;
+      }
+      getAllPossibleSubsAtIndex(index) {
         const nodes = [];
-        let cur = trieRoot;
-        for (let i = index; i < substr.length; i += 1) {
-          const character = substr.charAt(i);
+        let cur = this.trieRoot;
+        for (let i = index; i < this.substr.length; i += 1) {
+          const character = this.substr.charAt(i);
           cur = cur.getChild(character);
           if (!cur) {
             break;
           }
           nodes.push(cur);
         }
+        return nodes;
+      }
+      // eslint-disable-next-line complexity,max-statements
+      helper({
+        onlyFullSub,
+        isFullSub,
+        index,
+        subIndex,
+        changes,
+        lastSubLetter,
+        consecutiveSubCount
+      }) {
+        if (this.finalPasswords.length >= this.limit) {
+          return;
+        }
+        if (index === this.substr.length) {
+          if (onlyFullSub === isFullSub) {
+            this.finalPasswords.push({
+              password: this.buffer.join(''),
+              changes
+            });
+          }
+          return;
+        }
+        // first, exhaust all possible substitutions at this index
+        const nodes = [...this.getAllPossibleSubsAtIndex(index)];
         let hasSubs = false;
         // iterate backward to get wider substitutions first
         for (let i = index + nodes.length - 1; i >= index; i -= 1) {
-          cur = nodes[i - index];
+          const cur = nodes[i - index];
           if (cur.isTerminal()) {
+            // Skip if this would be a 4th or more consecutive substitution of the same letter
+            // this should work in all language as there shouldn't be the same letter more than four times in a row
+            // So we can ignore the rest to save calculation time
+            if (lastSubLetter === cur.parents.join('') && consecutiveSubCount >= 3) {
+              // eslint-disable-next-line no-continue
+              continue;
+            }
             hasSubs = true;
             const subs = cur.subs;
             // eslint-disable-next-line no-restricted-syntax
             for (const sub of subs) {
-              buffer.push(sub);
+              this.buffer.push(sub);
               const newSubs = changes.concat({
                 i: subIndex,
                 letter: sub,
                 substitution: cur.parents.join('')
               });
               // recursively build the rest of the string
-              helper(onlyFullSub, isFullSub, i + 1, subIndex + sub.length, newSubs);
+              this.helper({
+                onlyFullSub,
+                isFullSub,
+                index: i + 1,
+                subIndex: subIndex + sub.length,
+                changes: newSubs,
+                lastSubLetter: cur.parents.join(''),
+                consecutiveSubCount: lastSubLetter === cur.parents.join('') ? consecutiveSubCount + 1 : 1
+              });
               // backtrack by ignoring the added postfix
-              buffer.pop();
-              if (finalPasswords.length >= limit) {
+              this.buffer.pop();
+              if (this.finalPasswords.length >= this.limit) {
                 return;
               }
             }
@@ -806,34 +839,66 @@ this.zxcvbnts.core = (function (exports) {
         // next, generate all combos without doing a substitution at this index
         // if a partial substitution is requested or there are no substitutions at this index
         if (!onlyFullSub || !hasSubs) {
-          const firstChar = substr.charAt(index);
-          buffer.push(firstChar);
-          helper(onlyFullSub, isFullSub && !hasSubs, index + 1, subIndex + 1, changes);
-          buffer.pop();
+          const firstChar = this.substr.charAt(index);
+          this.buffer.push(firstChar);
+          this.helper({
+            onlyFullSub,
+            isFullSub: isFullSub && !hasSubs,
+            index: index + 1,
+            subIndex: subIndex + 1,
+            changes,
+            lastSubLetter,
+            consecutiveSubCount
+          });
+          this.buffer.pop();
         }
-      };
-      // only full substitution
-      helper(true, true, 0, 0, []);
-      // only partial substitution
-      helper(false, true, 0, 0, []);
-      return finalPasswords;
-    };
-    const getCleanPasswords = (string, limit, trieRoot) => {
-      return getAllSubCombosHelper({
-        substr: string,
-        buffer: [],
+      }
+      getAll() {
+        // only full substitution
+        this.helper({
+          onlyFullSub: true,
+          isFullSub: true,
+          index: 0,
+          subIndex: 0,
+          changes: [],
+          lastSubLetter: undefined,
+          consecutiveSubCount: 0
+        });
+        // only partial substitution
+        this.helper({
+          onlyFullSub: false,
+          isFullSub: true,
+          index: 0,
+          subIndex: 0,
+          changes: [],
+          lastSubLetter: undefined,
+          consecutiveSubCount: 0
+        });
+        return this.finalPasswords;
+      }
+    }
+    const getCleanPasswords = (password, limit, trieRoot) => {
+      const helper = new CleanPasswords({
+        substr: password,
         limit,
         trieRoot
       });
+      return helper.getAll();
     };
 
     const getExtras = (passwordWithSubs, i, j) => {
+      const previousChanges = passwordWithSubs.changes.filter(changes => {
+        return changes.i < i;
+      });
+      const iUnsubbed = previousChanges.reduce((value, change) => {
+        return value - change.letter.length + change.substitution.length;
+      }, i);
       const usedChanges = passwordWithSubs.changes.filter(changes => {
         return changes.i >= i && changes.i <= j;
       });
       const jUnsubbed = usedChanges.reduce((value, change) => {
         return value - change.letter.length + change.substitution.length;
-      }, j);
+      }, j - i + iUnsubbed);
       const filtered = [];
       const subDisplay = [];
       usedChanges.forEach(value => {
@@ -849,6 +914,7 @@ this.zxcvbnts.core = (function (exports) {
         }
       });
       return {
+        i: iUnsubbed,
         j: jUnsubbed,
         subs: filtered,
         subDisplay: subDisplay.join(', ')
@@ -892,7 +958,7 @@ this.zxcvbnts.core = (function (exports) {
               hasFullMatch = match.i === 0 && match.j === password.length - 1;
             }
             const extras = getExtras(subbedPassword, match.i, match.j);
-            const token = password.slice(match.i, +extras.j + 1 || 9e9);
+            const token = password.slice(extras.i, +extras.j + 1 || 9e9);
             const newMatch = {
               ...match,
               l33t: true,
@@ -992,17 +1058,20 @@ this.zxcvbnts.core = (function (exports) {
         Object.keys(regexes).forEach(name => {
           const regex = regexes[name];
           regex.lastIndex = 0; // keeps regexMatch stateless
-          const regexMatch = regex.exec(password);
-          if (regexMatch) {
-            const token = regexMatch[0];
-            matches.push({
-              pattern: 'regex',
-              token,
-              i: regexMatch.index,
-              j: regexMatch.index + regexMatch[0].length - 1,
-              regexName: name,
-              regexMatch
-            });
+          let regexMatch;
+          // eslint-disable-next-line no-cond-assign
+          while (regexMatch = regex.exec(password)) {
+            if (regexMatch) {
+              const token = regexMatch[0];
+              matches.push({
+                pattern: 'regex',
+                token,
+                i: regexMatch.index,
+                j: regexMatch.index + regexMatch[0].length - 1,
+                regexName: name,
+                regexMatch
+              });
+            }
           }
         });
         return sorted(matches);
@@ -1109,16 +1178,25 @@ this.zxcvbnts.core = (function (exports) {
       return getVariations(cleanedWord);
     });
 
+    const countSubstring = (string, substring) => {
+      let count = 0;
+      let pos = string.indexOf(substring);
+      while (pos >= 0) {
+        count += 1;
+        pos = string.indexOf(substring, pos + substring.length);
+      }
+      return count;
+    };
     const getCounts = ({
       sub,
       token
     }) => {
       // lower-case match.token before calculating: capitalization shouldn't affect l33t calc.
-      const chrs = token.toLowerCase().split('');
+      const tokenLower = token.toLowerCase();
       // num of subbed chars
-      const subbedCount = chrs.filter(char => char === sub.substitution).length;
+      const subbedCount = countSubstring(tokenLower, sub.substitution);
       // num of unsubbed chars
-      const unsubbedCount = chrs.filter(char => char === sub.letter).length;
+      const unsubbedCount = countSubstring(tokenLower, sub.letter);
       return {
         subbedCount,
         unsubbedCount
@@ -1304,6 +1382,10 @@ this.zxcvbnts.core = (function (exports) {
       return Math.round(guesses);
     });
 
+    var separatorMatcher$1 = (() => {
+      return SEPERATOR_CHAR_COUNT;
+    });
+
     const getMinGuesses = (match, password) => {
       let minGuesses = 1;
       if (match.token.length < password.length) {
@@ -1322,7 +1404,8 @@ this.zxcvbnts.core = (function (exports) {
       regex: regexMatcher$1,
       repeat: repeatMatcher$1,
       sequence: sequenceMatcher$1,
-      spatial: spatialMatcher$1
+      spatial: spatialMatcher$1,
+      separator: separatorMatcher$1
     };
     const getScoring = (name, match) => {
       if (matchers[name]) {
@@ -1573,13 +1656,6 @@ this.zxcvbnts.core = (function (exports) {
       }
     };
 
-    function createRegex({
-      isLazy = false,
-      isAnchored = false,
-      flags = ''
-    }) {
-      return new RegExp(`${isAnchored ? '^' : ''}(.+${isLazy ? '?' : ''})\\1+${isAnchored ? '$' : ''}`, flags);
-    }
     /*
      *-------------------------------------------------------------------------------
      * repeats (aaa, abcabcabc) ------------------------------
@@ -1643,26 +1719,17 @@ this.zxcvbnts.core = (function (exports) {
         };
       }
       getGreedyMatch(password, lastIndex) {
-        const greedy = createRegex({
-          isLazy: false,
-          flags: 'g'
-        });
+        const greedy = /(.+)\1+/g;
         greedy.lastIndex = lastIndex;
         return greedy.exec(password);
       }
       getLazyMatch(password, lastIndex) {
-        const lazy = createRegex({
-          isLazy: true,
-          flags: 'g'
-        });
+        const lazy = /(.+?)\1+/g;
         lazy.lastIndex = lastIndex;
         return lazy.exec(password);
       }
       setMatchToken(greedyMatch, lazyMatch) {
-        const lazyAnchored = createRegex({
-          isLazy: true,
-          isAnchored: true
-        });
+        const lazyAnchored = /^(.+?)\1+$/;
         let match;
         let baseToken = '';
         if (lazyMatch && greedyMatch[0].length > lazyMatch[0].length) {
@@ -1851,7 +1918,7 @@ this.zxcvbnts.core = (function (exports) {
         const passwordLength = password.length;
         while (i < passwordLength - 1) {
           let j = i + 1;
-          let lastDirection = 0;
+          let lastDirection = null;
           let turns = 0;
           shiftedCount = this.checkIfShifted(graphName, password, i);
           // eslint-disable-next-line no-constant-condition
