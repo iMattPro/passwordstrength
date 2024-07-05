@@ -15,10 +15,10 @@ class ext extends \phpbb\extension\base
 	/**
 	 * {@inheritdoc}
 	 *
-	 * Requires phpBB 3.3.10 due to new template events in ADM styles.
+	 * Requires phpBB 4.0.0
 	 */
 	public function is_enableable()
 	{
-		return phpbb_version_compare(PHPBB_VERSION, '3.3.10-RC1', '>=');
+		return phpbb_version_compare(PHPBB_VERSION, '4.0.0-dev', '>=');
 	}
 }
