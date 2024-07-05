@@ -20,7 +20,7 @@
 	"extra": {
 		"display-name": "Password Strength",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.3.10"
+			"phpbb/phpbb": ">=3.3.10,<4.0.0@dev"
 		},
 		"version-check": {
 			"host": "www.phpbb.com",
