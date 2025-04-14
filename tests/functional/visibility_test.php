@@ -20,18 +20,12 @@ class visibility_test extends \phpbb_functional_test_case
 		return array('vse/passwordstrength');
 	}
 
-	protected function setUp(): void
-	{
-		parent::setUp();
-		$this->add_lang_ext('vse/passwordstrength', array('passwordstrength', 'acp_passwordstrength'));
-
-		$this->purge_cache();
-	}
-
 	public function test_acp_pages()
 	{
 		$this->login();
 		$this->admin_login();
+
+		$this->add_lang_ext('vse/passwordstrength', 'acp_passwordstrength');
 
 		// Test ACP settings page
 		$crawler = self::request('GET', "adm/index.php?i=acp_board&mode=registration&sid=$this->sid");
