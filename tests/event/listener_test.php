@@ -54,7 +54,7 @@ class listener_test extends \phpbb_test_case
 		), array_keys(\vse\passwordstrength\event\listener::getSubscribedEvents()));
 	}
 
-	public function password_strength_setup_data()
+	public static function password_strength_setup_data()
 	{
 		return array(
 			array(
@@ -107,7 +107,7 @@ class listener_test extends \phpbb_test_case
 		}
 	}
 
-	public function password_strength_acp_options_data()
+	public static function password_strength_acp_options_data()
 	{
 		return array(
 			array( // expected config and mode
