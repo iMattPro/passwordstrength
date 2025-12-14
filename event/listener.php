@@ -89,12 +89,31 @@ class listener implements EventSubscriberInterface
 				'lang'		=> 'PASSWORD_STRENGTH_TYPE',
 				'validate'	=> 'int',
 				'type'		=> 'select',
-				'function'	=> 'build_select',
+				'function'	=> [$this, 'pws_select'],
 				'params'	=> [[0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX', 1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN'], '{CONFIG_VALUE}'],
 				'explain'	=> true,
 			],
 		];
 
 		$event->update_subarray('display_vars', 'vars', phpbb_insert_config_array($event['display_vars']['vars'], $pws_config_vars, ['after' => 'pass_complex']));
+	}
+
+	/**
+	 * Get select options for ACP (phpBB3 and phpBB4 compatible)
+	 *
+	 * @param array $options
+	 * @param bool|int|string $default
+	 * @return array|string
+	 */
+	public function pws_select($options, $default)
+	{
+		$opts = build_select($options, $default);
+
+		if (phpbb_version_compare($this->config->offsetGet('version'), '4.0.0-dev', '>='))
+		{
+			return ['options' => $opts];
+		}
+
+		return $opts;
 	}
 }

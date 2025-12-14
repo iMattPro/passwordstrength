@@ -33,6 +33,9 @@ class listener_test extends \phpbb_test_case
 		$this->config = new \phpbb\config\config(array());
 		$this->template = $this->createMock('\phpbb\template\template');
 		$this->language = $this->createMock('\phpbb\language\language');
+
+		global $user;
+		$user = new \phpbb\user($this->language, '\phpbb\datetime');
 	}
 
 	protected function set_listener()
@@ -155,5 +158,66 @@ class listener_test extends \phpbb_test_case
 		$keys = array_keys($display_vars['vars']);
 
 		self::assertEquals($expected_keys, $keys);
+	}
+
+	public function pws_select_data()
+	{
+		return [
+			'phpbb3 complex' => [
+				'3.3.15',
+				[
+					0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
+					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
+				],
+				0,
+				'<option value="0" selected="selected">complex</option><option value="1">zxcvbn</option>',
+			],
+			'phpbb3 zxcvbn' => [
+				'3.3.15',
+				[
+					0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
+					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
+				],
+				1,
+				'<option value="0">complex</option><option value="1" selected="selected">zxcvbn</option>',
+			],
+			'phpbb4 complex' => [
+				'4.0.0',
+				[
+					0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
+					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
+				],
+				0,
+				['options' => '<option value="0" selected="selected">complex</option><option value="1">zxcvbn</option>'],
+			],
+			'phpbb4 zxcvbn' => [
+				'4.0.0',
+				[
+					0 => 'PASSWORD_STRENGTH_TYPE_COMPLEX',
+					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
+				],
+				1,
+				['options' => '<option value="0">complex</option><option value="1" selected="selected">zxcvbn</option>'],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider pws_select_data
+	 */
+	public function test_pws_select($env, $options, $default, $expected)
+	{
+		global $user;
+
+		$user->lang = [
+			'PASSWORD_STRENGTH_TYPE_COMPLEX' => 'complex',
+			'PASSWORD_STRENGTH_TYPE_ZXCVBN' => 'zxcvbn',
+		];
+
+		$this->config['version'] = $env;
+
+		$this->set_listener();
+
+		$this->assertEquals($expected, $this->listener->pws_select($options, $default));
 	}
 }
