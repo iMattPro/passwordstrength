@@ -15,7 +15,7 @@ class ext extends \phpbb\extension\base
 	/**
 	 * {@inheritdoc}
 	 *
-	 * Requires phpBB 4.0.0
+	 * Requires phpBB 3.3.10 due to new template events in ADM styles.
 	 */
 	public function is_enableable()
 	{
