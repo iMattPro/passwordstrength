@@ -10,54 +10,60 @@
 
 namespace vse\passwordstrength\tests\event;
 
+use phpbb\config\config;
+use phpbb\event\dispatcher;
+use phpbb\language\language;
+use phpbb\template\template;
+use phpbb_test_case;
+use PHPUnit\Framework\MockObject\MockObject;
+use vse\passwordstrength\event\listener;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 require_once __DIR__ . '/../../../../../includes/functions_acp.php';
 
-class listener_test extends \phpbb_test_case
+class listener_test extends phpbb_test_case
 {
-	/** @var \vse\passwordstrength\event\listener */
-	protected $listener;
+	/** @var listener */
+	protected listener $listener;
 
-	/** @var \phpbb\config\config */
-	protected $config;
+	/** @var config */
+	protected config $config;
 
-	/** @var \phpbb\template\template|\PHPUnit\Framework\MockObject\MockObject */
-	protected $template;
+	/** @var template|MockObject */
+	protected template|MockObject $template;
 
-	/** @var \phpbb\language\language|\PHPUnit\Framework\MockObject\MockObject */
-	protected $language;
+	/** @var language|MockObject */
+	protected language|MockObject $language;
 
 	protected function setUp(): void
 	{
 		parent::setUp();
 
-		$this->config = new \phpbb\config\config(array());
-		$this->template = $this->createMock('\phpbb\template\template');
-		$this->language = $this->createMock('\phpbb\language\language');
-
-		global $user;
-		$user = new \phpbb\user($this->language, '\phpbb\datetime');
+		$this->config = new config(array());
+		$this->template = $this->createMock(template::class);
+		$this->language = $this->createMock(language::class);
 	}
 
-	protected function set_listener()
+	protected function set_listener(): void
 	{
-		$this->listener = new \vse\passwordstrength\event\listener($this->config, $this->template, $this->language);
+		$this->listener = new listener($this->config, $this->template, $this->language);
 	}
 
-	public function test_construct()
+	public function test_construct(): void
 	{
 		$this->set_listener();
-		self::assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
+		self::assertInstanceOf(EventSubscriberInterface::class, $this->listener);
 	}
 
-	public function test_getSubscribedEvents()
+	public function test_getSubscribedEvents(): void
 	{
 		self::assertEquals(array(
 			'core.user_setup',
 			'core.acp_board_config_edit_add',
-		), array_keys(\vse\passwordstrength\event\listener::getSubscribedEvents()));
+		), array_keys(listener::getSubscribedEvents()));
 	}
 
-	public static function password_strength_setup_data()
+	public static function password_strength_setup_data(): array
 	{
 		return array(
 			array(
@@ -93,16 +99,16 @@ class listener_test extends \phpbb_test_case
 	/**
 	* @dataProvider password_strength_setup_data
 	*/
-	public function test_password_strength_setup($lang_set_ext, $expected_contains)
+	public function test_password_strength_setup($lang_set_ext, $expected_contains): void
 	{
 		$this->set_listener();
 
-		$dispatcher = new \phpbb\event\dispatcher();
+		$dispatcher = new dispatcher();
 		$dispatcher->addListener('core.user_setup', array($this->listener, 'password_strength_setup'));
 
 		$event_data = array('lang_set_ext');
 		$event_data_filtered = $dispatcher->trigger_event('core.user_setup', compact($event_data));
-		extract($event_data_filtered, EXTR_OVERWRITE);
+		extract($event_data_filtered);
 
 		foreach ($expected_contains as $expected)
 		{
@@ -110,7 +116,7 @@ class listener_test extends \phpbb_test_case
 		}
 	}
 
-	public static function password_strength_acp_options_data()
+	public static function password_strength_acp_options_data(): array
 	{
 		return array(
 			array( // expected config and mode
@@ -139,11 +145,11 @@ class listener_test extends \phpbb_test_case
 	/**
 	 * @dataProvider password_strength_acp_options_data
 	 */
-	public function test_password_strength_acp_options($mode, $display_vars, $expected_keys)
+	public function test_password_strength_acp_options($mode, $display_vars, $expected_keys): void
 	{
 		$this->set_listener();
 
-		$dispatcher = new \phpbb\event\dispatcher();
+		$dispatcher = new dispatcher();
 		$dispatcher->addListener('core.acp_board_config_edit_add', array($this->listener, 'password_strength_acp_options'));
 
 		$event_data = array('display_vars', 'mode');
@@ -153,14 +159,14 @@ class listener_test extends \phpbb_test_case
 		{
 			self::assertArrayHasKey($expected, $event_data_after);
 		}
-		extract($event_data_after, EXTR_OVERWRITE);
+		extract($event_data_after);
 
 		$keys = array_keys($display_vars['vars']);
 
 		self::assertEquals($expected_keys, $keys);
 	}
 
-	public function pws_select_data()
+	public static function pws_select_data(): array
 	{
 		return [
 			'phpbb3 complex' => [
@@ -170,7 +176,10 @@ class listener_test extends \phpbb_test_case
 					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
 				],
 				0,
-				'<option value="0" selected="selected">complex</option><option value="1">zxcvbn</option>',
+				[
+					['value' => 0, 'selected' => true, 'label' => 'PASSWORD_STRENGTH_TYPE_COMPLEX'],
+					['value' => 1, 'selected' => false, 'label' => 'PASSWORD_STRENGTH_TYPE_ZXCVBN']
+				],
 			],
 			'phpbb3 zxcvbn' => [
 				'3.3.15',
@@ -179,7 +188,10 @@ class listener_test extends \phpbb_test_case
 					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
 				],
 				1,
-				'<option value="0">complex</option><option value="1" selected="selected">zxcvbn</option>',
+				[
+					['value' => 0, 'selected' => false, 'label' => 'PASSWORD_STRENGTH_TYPE_COMPLEX'],
+					['value' => 1, 'selected' => true, 'label' => 'PASSWORD_STRENGTH_TYPE_ZXCVBN']
+				],
 			],
 			'phpbb4 complex' => [
 				'4.0.0',
@@ -188,7 +200,10 @@ class listener_test extends \phpbb_test_case
 					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
 				],
 				0,
-				['options' => '<option value="0" selected="selected">complex</option><option value="1">zxcvbn</option>'],
+				['options' => [
+					['value' => 0, 'selected' => true, 'label' => 'PASSWORD_STRENGTH_TYPE_COMPLEX'],
+					['value' => 1, 'selected' => false, 'label' => 'PASSWORD_STRENGTH_TYPE_ZXCVBN']
+				]],
 			],
 			'phpbb4 zxcvbn' => [
 				'4.0.0',
@@ -197,7 +212,10 @@ class listener_test extends \phpbb_test_case
 					1 => 'PASSWORD_STRENGTH_TYPE_ZXCVBN',
 				],
 				1,
-				['options' => '<option value="0">complex</option><option value="1" selected="selected">zxcvbn</option>'],
+				['options' => [
+					['value' => 0, 'selected' => false, 'label' => 'PASSWORD_STRENGTH_TYPE_COMPLEX'],
+					['value' => 1, 'selected' => true, 'label' => 'PASSWORD_STRENGTH_TYPE_ZXCVBN']
+				]],
 			],
 		];
 	}
@@ -205,14 +223,12 @@ class listener_test extends \phpbb_test_case
 	/**
 	 * @dataProvider pws_select_data
 	 */
-	public function test_pws_select($env, $options, $default, $expected)
+	public function test_pws_select($env, $options, $default, $expected): void
 	{
-		global $user;
+		global $language;
+		$language = $this->language;
 
-		$user->lang = [
-			'PASSWORD_STRENGTH_TYPE_COMPLEX' => 'complex',
-			'PASSWORD_STRENGTH_TYPE_ZXCVBN' => 'zxcvbn',
-		];
+		$this->language->method('lang')->willReturnArgument(0);
 
 		$this->config['version'] = $env;
 
