@@ -99,14 +99,21 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Get select options for ACP
+	 * Get select options for ACP (phpBB3 and phpBB4 compatible)
 	 *
 	 * @param array $options
 	 * @param bool|int|string $default
-	 * @return array
+	 * @return array|string
 	 */
-	public function pws_select(array $options, bool|int|string $default): array
+	public function pws_select($options, $default)
 	{
-		return ['options' => build_select($options, $default)];
+		$opts = build_select($options, $default);
+
+		if (phpbb_version_compare($this->config->offsetGet('version'), '4.0.0-dev', '>='))
+		{
+			return ['options' => $opts];
+		}
+
+		return $opts;
 	}
 }
