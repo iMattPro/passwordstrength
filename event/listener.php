@@ -17,6 +17,39 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class listener implements EventSubscriberInterface
 {
+	protected const ZXCVBNTS_LANGUAGE_MAP = [
+		'ar' => 'ar',
+		'cs' => 'cs',
+		'da-dk' => 'da-dk',
+		'da' => 'da-dk',
+		'de' => 'de',
+		'de-x-sie' => 'de',
+		'en' => 'en',
+		'es' => 'es-es',
+		'es-es' => 'es-es',
+		'es-x-tu' => 'es-es',
+		'fa' => 'fa',
+		'fi' => 'fi',
+		'fr' => 'fr',
+		'hr' => 'hr',
+		'hr-x-vi' => 'hr',
+		'id' => 'id',
+		'it' => 'it',
+		'ja' => 'ja',
+		'ku' => 'ku',
+		'nl' => 'nl-be',
+		'nl-be' => 'nl-be',
+		'pl' => 'pl',
+		'pt' => 'pt-br',
+		'pt-br' => 'pt-br',
+		'ro' => 'ro',
+		'th' => 'th',
+		'tr' => 'tr',
+		'zh' => 'zh',
+		'zh-cmn-hans' => 'zh',
+		'zh-cmn-hant' => 'zh',
+	];
+
 	/** @var \phpbb\config\config */
 	protected $config;
 
@@ -67,7 +100,24 @@ class listener implements EventSubscriberInterface
 		];
 		$event['lang_set_ext'] = $lang_set_ext;
 
-		$this->template->assign_var('S_USE_ZXCVBN', (bool) $this->config->offsetGet('password_strength_type'));
+		$this->template->assign_vars([
+			'S_USE_ZXCVBN'	=> (bool) $this->config->offsetGet('password_strength_type'),
+			'ZXCVBNTS_LANG'	=> $this->get_zxcvbnts_language($event['user_lang_name']),
+		]);
+	}
+
+	/**
+	 * Resolve phpBB language names to available zxcvbn-ts language package names.
+	 *
+	 * @param string $language
+	 * @return string
+	 */
+	public function get_zxcvbnts_language($language)
+	{
+		$language = strtolower(str_replace('_', '-', $language));
+		$base_language = explode('-', $language, 2)[0];
+
+		return self::ZXCVBNTS_LANGUAGE_MAP[$language] ?? self::ZXCVBNTS_LANGUAGE_MAP[$base_language] ?? 'en';
 	}
 
 	/**
