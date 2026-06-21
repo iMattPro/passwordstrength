@@ -4,18 +4,28 @@
 	"private": true,
 	"dependencies": {
 		"@zxcvbn-ts/core": "^4.1.2",
+		"@zxcvbn-ts/language-ar": "^4.1.1",
 		"@zxcvbn-ts/language-common": "^4.1.2",
+		"@zxcvbn-ts/language-cs": "^4.1.1",
+		"@zxcvbn-ts/language-da-dk": "^4.1.1",
 		"@zxcvbn-ts/language-de": "^4.1.1",
 		"@zxcvbn-ts/language-en": "^4.1.1",
 		"@zxcvbn-ts/language-es-es": "^4.1.1",
+		"@zxcvbn-ts/language-fa": "^4.1.1",
 		"@zxcvbn-ts/language-fi": "^4.1.1",
 		"@zxcvbn-ts/language-fr": "^4.1.1",
+		"@zxcvbn-ts/language-hr": "^4.1.1",
 		"@zxcvbn-ts/language-id": "^4.1.1",
 		"@zxcvbn-ts/language-it": "^4.1.1",
 		"@zxcvbn-ts/language-ja": "^4.1.1",
+		"@zxcvbn-ts/language-ku": "^4.1.1",
 		"@zxcvbn-ts/language-nl-be": "^4.1.1",
 		"@zxcvbn-ts/language-pl": "^4.1.1",
-		"@zxcvbn-ts/language-pt-br": "^4.1.1"
+		"@zxcvbn-ts/language-pt-br": "^4.1.1",
+		"@zxcvbn-ts/language-ro": "^4.1.1",
+		"@zxcvbn-ts/language-th": "^4.1.1",
+		"@zxcvbn-ts/language-tr": "^4.1.1",
+		"@zxcvbn-ts/language-zh": "^4.1.1"
 	},
 	"devDependencies": {
 		"copyfiles": "^2.4.1"
