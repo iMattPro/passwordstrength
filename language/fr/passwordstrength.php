@@ -39,6 +39,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	'PS_PASSWORD_STRENGTH'	=> 'Robustesse du mot de passe',
 	'PS_VERY_WEAK'		=> 'Trop simple',
 	'PS_WEAK'			=> 'Faible',
 	'PS_GOOD'			=> 'Bon',
