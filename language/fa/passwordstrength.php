@@ -36,9 +36,9 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PS_PASSWORD_STRENGTH'	=> 'قدرت گذرواژه',
-	'PS_VERY_WEAK'		=> '🙁 گذرواژه خیلی ضعیف',
-	'PS_WEAK'			=> '🙁 گذرواژه ضعیف',
-	'PS_GOOD'			=> '😐 گذرواژه مناسب',
-	'PS_STRONG'			=> '🙂 گذرواژه قوی',
-	'PS_VERY_STRONG'	=> '😀 گذرواژه خیلی قوی',
+	'PS_VERY_WEAK'		=> 'گذرواژه خیلی ضعیف',
+	'PS_WEAK'			=> 'گذرواژه ضعیف',
+	'PS_GOOD'			=> 'گذرواژه مناسب',
+	'PS_STRONG'			=> 'گذرواژه قوی',
+	'PS_VERY_STRONG'	=> 'گذرواژه خیلی قوی',
 ));
